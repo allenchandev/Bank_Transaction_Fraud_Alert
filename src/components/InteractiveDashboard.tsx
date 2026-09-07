@@ -270,27 +270,27 @@ export default function InteractiveDashboard() {
         />
         
         {/* Floating Legend */}
-        <div className="absolute bottom-6 left-6 bg-neutral-900/90 backdrop-blur border border-neutral-700 text-neutral-300 p-4 rounded-xl text-sm space-y-4 shadow-2xl">
-          <div className="font-bold text-white uppercase tracking-wider mb-2 text-xs">How to read this map</div>
+        <div className="absolute top-6 right-6 bg-neutral-900/90 backdrop-blur border border-neutral-700/80 text-neutral-300 p-3 rounded-lg text-xs space-y-2 shadow-2xl z-20 max-w-xs">
+          <div className="font-bold text-white uppercase tracking-wider text-[10px] text-neutral-400">How to read this map</div>
           
-          <div className="flex items-center gap-3">
-            <div className="w-4 h-4 rounded-full bg-neutral-800 border-[3px] border-neutral-500"></div>
-            <span><strong>Circle</strong> = A Bank Account (Bigger circle = More dangerous)</span>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-neutral-800 border-[2px] border-neutral-400 shrink-0"></div>
+            <span><strong className="text-white">Circle</strong> = Bank Account (Bigger = Riskier)</span>
           </div>
           
-          <div className="flex items-center gap-3">
-            <div className="w-5 h-0.5 bg-neutral-500"></div>
-            <span><strong>Arrow</strong> = Money moving to another account</span>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-0.5 bg-neutral-500 shrink-0"></div>
+            <span><strong className="text-white">Arrow</strong> = Money Transfer</span>
           </div>
           
-          <div className="flex items-center gap-3">
-            <div className="w-5 h-1.5 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]"></div>
-            <span className="text-red-400 font-medium">Red Arrow = A bad loop (Money Laundering)</span>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-1 rounded-full bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.8)] shrink-0"></div>
+            <span className="text-red-400 font-medium">Red = Laundering Loop</span>
           </div>
           
-          <div className="flex items-center gap-3">
-            <div className="w-5 h-1.5 rounded-full bg-blue-500"></div>
-            <span className="text-blue-400 font-medium">Blue Arrow = Tracking where money went</span>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-1 rounded-full bg-blue-500 shadow-[0_0_6px_rgba(59,130,246,0.8)] shrink-0"></div>
+            <span className="text-blue-400 font-medium">Blue = Tracked Flow</span>
           </div>
         </div>
       </div>
