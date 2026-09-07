@@ -39,15 +39,17 @@ export default function NetworkGraph({
     return positions;
   }, [accounts]);
 
-  // 2. Identify edges that form money laundering cycles (DFS Output)
-  const cycleEdges = useMemo(() => {
+  // 2. Identify edges and nodes that form money laundering cycles (DFS Output)
+  const { cycleEdges, cycleNodes } = useMemo(() => {
     const edges = new Set<string>();
+    const nodes = new Set<string>();
     cycles.forEach(c => {
+      c.path.forEach(node => nodes.add(node));
       for (let i = 0; i < c.path.length - 1; i++) {
         edges.add(`${c.path[i]}->${c.path[i+1]}`);
       }
     });
-    return edges;
+    return { cycleEdges: edges, cycleNodes: nodes };
   }, [cycles]);
 
   // 3. Identify edges used in the fund trace (BFS Output)
@@ -169,7 +171,7 @@ export default function NetworkGraph({
           const data = nodeData.get(acc.id) || { risk: 0 };
           const isSelected = selectedNode === acc.id;
           const isReachable = data.hops !== undefined && data.hops > 0;
-          const inHighlightedCycle = showCycles && Array.from(cycleEdges).some(e => e.includes(acc.id));
+          const inHighlightedCycle = showCycles && cycleNodes.has(acc.id);
 
           // Base node size on Risk Score (Sorting Algorithm Output)
           const baseRadius = 14;

@@ -32,222 +32,222 @@ export default function InteractiveDashboard() {
       <div className="w-[420px] bg-white border-r border-neutral-200 flex flex-col h-full overflow-y-auto z-10 shadow-xl shrink-0">
         
         {/* Header */}
-        <div className="p-6 border-b border-neutral-100 bg-neutral-900 text-white relative">
+        <div className="p-6 border-b border-neutral-800 bg-neutral-900 text-white relative">
           <div className="flex justify-between items-start">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-medium mb-4 border border-blue-500/30">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-medium mb-4 border border-blue-500/20">
               <ShieldAlert className="w-3.5 h-3.5" />
-              Beginner's Guide
+              Graph Intelligence Engine
             </div>
             <button 
               onClick={() => setShowFAQ(!showFAQ)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-white text-xs font-bold transition-colors border border-neutral-700"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-xs font-medium transition-colors border border-neutral-700"
             >
-              {showFAQ ? <X className="w-4 h-4" /> : <HelpCircle className="w-4 h-4" />}
-              {showFAQ ? "Close FAQ" : "Staff FAQ"}
+              {showFAQ ? <X className="w-3.5 h-3.5" /> : <HelpCircle className="w-3.5 h-3.5" />}
+              {showFAQ ? "Overview" : "Methodology"}
             </button>
           </div>
           
-          <h1 className="text-2xl font-semibold tracking-tight mb-2">How Banks Catch Fraud</h1>
-          <div className="text-sm text-neutral-400 leading-relaxed bg-white/10 p-3 rounded-lg border border-white/20 mt-2">
-            <strong className="text-white block mb-1">Why do banks need this?</strong>
-            Millions of transactions happen every day. Looking at spreadsheets is too slow. 
-            So, banks use a visual <strong>Map of Money</strong> (like the one on the right) combined with smart tools to spot criminals instantly.
-          </div>
+          <h1 className="text-xl font-bold tracking-tight mb-1">Transaction Fraud Monitor</h1>
+          <p className="text-xs text-neutral-400 leading-relaxed">
+            Real-time graph analysis for identifying circular fund flows, transaction layering, and multi-hop account exposure.
+          </p>
         </div>
 
         {/* DSA Controls Area / FAQ Area */}
-        <div className="p-6 space-y-8 flex-1">
+        <div className="p-6 space-y-6 flex-1 text-neutral-800">
           
           {showFAQ ? (
-            <div className="space-y-6 animate-in fade-in duration-300">
-              <h2 className="font-bold text-xl border-b pb-2">Staff Questions & Answers</h2>
+            <div className="space-y-5 animate-in fade-in duration-200">
+              <h2 className="font-semibold text-base border-b border-neutral-200 pb-2 text-neutral-900">Detection Methodology</h2>
               
-              <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
-                <h3 className="font-bold text-blue-900 mb-2">Q: How does the bank know an account is doing Money Laundering?</h3>
-                <p className="text-sm text-blue-800 leading-relaxed">
-                  They don't know for sure at first! Most accounts are normal. The bank uses this system to scan millions of accounts and look for <strong>unnatural patterns</strong> (like money moving in strange circles). The system gives these weird accounts a "Danger Score" (Step 3). A human investigator then looks at the high-score accounts to confirm if it is fraud.
+              <div className="bg-neutral-50 p-4 rounded-xl border border-neutral-200 space-y-1">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-blue-700">1. Cycle Detection (DFS)</h3>
+                <p className="text-xs text-neutral-600 leading-relaxed">
+                  Identifies closed loops in directed transaction chains ($A \rightarrow B \rightarrow \dots \rightarrow A$). In financial forensics, cyclic fund velocity is a primary heuristic for transaction layering and shell network routing.
                 </p>
               </div>
 
-              <div className="bg-red-50 p-4 rounded-xl border border-red-100">
-                <h3 className="font-bold text-red-900 mb-2">Q: Why do criminals send money in Loops (Step 1)?</h3>
-                <p className="text-sm text-red-800 leading-relaxed">
-                  It's a trick called "Layering." If a criminal steals money, they don't want to just keep it in their main account. They send it through 5 or 6 different fake accounts to make it look like a normal business transaction, hoping the bank gets too confused to follow the trail.
+              <div className="bg-neutral-50 p-4 rounded-xl border border-neutral-200 space-y-1">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-purple-700">2. Reachability & Exposure (BFS)</h3>
+                <p className="text-xs text-neutral-600 leading-relaxed">
+                  Traces downstream account exposure within $N$ degrees of separation from a compromised origin account, enabling precise asset containment and rapid blast-radius evaluation.
                 </p>
               </div>
 
-              <div className="bg-orange-50 p-4 rounded-xl border border-orange-100">
-                <h3 className="font-bold text-orange-900 mb-2">Q: Why do we need to track where the stolen money went (Step 2)?</h3>
-                <p className="text-sm text-orange-800 leading-relaxed">
-                  If a victim calls the bank and says, <em>"I was just scammed by Shady LLC!"</em>, the bank needs to act fast. The scammer usually moves that money immediately to other accounts. By tracking the money, the bank can find those other accounts and <strong>freeze them</strong> before the scammer can withdraw the cash.
+              <div className="bg-neutral-50 p-4 rounded-xl border border-neutral-200 space-y-1">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-amber-700">3. Degree & Anomaly Scoring</h3>
+                <p className="text-xs text-neutral-600 leading-relaxed">
+                  Weights cyclic involvement (+50), high transaction frequency (+20), and skewed out-degree dispersal ratios (+15) into a composite risk metric from 0 to 100.
                 </p>
               </div>
             </div>
           ) : (
             <>
               {/* Section 1: Cycle Detection */}
-          <section>
-            <div className="flex items-center gap-2 mb-3">
-              <div className="p-1.5 bg-red-100 text-red-600 rounded flex-shrink-0">
-                <RefreshCw className="w-4 h-4" />
-              </div>
-              <h2 className="font-semibold text-lg leading-tight">Step 1: Find the Money Loops</h2>
-            </div>
-            
-            <p className="text-sm text-neutral-600 mb-4">
-              Criminals send money in circles to try and hide it (this is called money laundering). 
-              Click this button to instantly find and light up these bad loops in red.
-            </p>
+              <section className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <div className="p-1.5 bg-red-50 text-red-600 rounded-lg flex-shrink-0 border border-red-100">
+                    <RefreshCw className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h2 className="font-semibold text-sm text-neutral-900 leading-tight">Cyclic Transfer Detection</h2>
+                    <p className="text-xs text-neutral-500">Depth-First Search (DFS)</p>
+                  </div>
+                </div>
+                
+                <div className="p-3.5 rounded-xl border border-neutral-200 bg-neutral-50 flex items-center justify-between">
+                  <div>
+                    <span className="block font-medium text-xs text-neutral-900">Highlight Active Cycles</span>
+                    <span className="block text-[11px] text-neutral-500">{cycles.length} circular pattern{cycles.length === 1 ? '' : 's'} identified</span>
+                  </div>
+                  <button 
+                    onClick={() => {
+                      setShowCycles(!showCycles);
+                      if (!showCycles) setSelectedNode(null); 
+                    }}
+                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${showCycles ? 'bg-red-600' : 'bg-neutral-300'}`}
+                  >
+                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${showCycles ? 'translate-x-6' : 'translate-x-1'}`} />
+                  </button>
+                </div>
+              </section>
 
-            <div className="p-4 rounded-xl border border-neutral-200 bg-neutral-50 flex items-center justify-between shadow-sm">
-              <div>
-                <span className="block font-medium text-sm text-neutral-900">Show bad loops</span>
-                <span className="block text-xs text-neutral-500">{cycles.length} loops found hidden in the map</span>
-              </div>
-              <button 
-                onClick={() => {
-                  setShowCycles(!showCycles);
-                  if (!showCycles) setSelectedNode(null); 
-                }}
-                className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors ${showCycles ? 'bg-red-500' : 'bg-neutral-300'}`}
-              >
-                <span className={`inline-block h-5 w-5 transform rounded-full bg-white transition-transform ${showCycles ? 'translate-x-6' : 'translate-x-1'}`} />
-              </button>
-            </div>
-          </section>
+              <hr className="border-neutral-200/80" />
 
-          <hr className="border-neutral-100" />
+              {/* Section 2: BFS Trace */}
+              <section className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <div className="p-1.5 bg-blue-50 text-blue-600 rounded-lg flex-shrink-0 border border-blue-100">
+                    <Target className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h2 className="font-semibold text-sm text-neutral-900 leading-tight">Downstream Fund Trace</h2>
+                    <p className="text-xs text-neutral-500">Breadth-First Search (BFS)</p>
+                  </div>
+                </div>
 
-          {/* Section 2: BFS Trace */}
-          <section>
-            <div className="flex items-center gap-2 mb-3">
-              <div className="p-1.5 bg-blue-100 text-blue-600 rounded flex-shrink-0">
-                <Target className="w-4 h-4" />
-              </div>
-              <h2 className="font-semibold text-lg leading-tight">Step 2: Track the Stolen Money</h2>
-            </div>
+                <div className="p-3.5 rounded-xl border border-neutral-200 bg-neutral-50 space-y-3">
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="font-medium text-neutral-700">Traversal Depth (Max Hops)</span>
+                    <span className="font-bold text-blue-600 px-2 py-0.5 bg-blue-50 border border-blue-200 rounded">{bfsHops} hop{bfsHops > 1 ? 's' : ''}</span>
+                  </div>
+                  <input 
+                    type="range" 
+                    min="1" max="5" 
+                    value={bfsHops}
+                    onChange={(e) => setBfsHops(parseInt(e.target.value))}
+                    className="w-full accent-blue-600 cursor-pointer h-1.5 bg-neutral-200 rounded-lg"
+                  />
+                  
+                  {selectedNode ? (
+                    <div className="pt-3 border-t border-neutral-200">
+                      <span className="text-[11px] text-neutral-500 font-semibold uppercase tracking-wider block mb-2">
+                        Origin: {getAccountName(selectedNode)} ({selectedNode})
+                      </span>
+                      <div className="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto">
+                        {reachableAccounts.length === 0 ? (
+                          <span className="text-xs text-neutral-500 italic">No outgoing transactions found from this node.</span>
+                        ) : (
+                          reachableAccounts.map(r => (
+                            <span key={r.node} className="text-[11px] px-2 py-1 bg-white border border-neutral-200 text-neutral-700 rounded shadow-xs font-mono">
+                              {getAccountName(r.node)} <span className="text-blue-600 font-sans font-medium">({r.hops}h)</span>
+                            </span>
+                          ))
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="pt-2 flex items-center gap-2 text-xs text-neutral-500">
+                      <Info className="w-4 h-4 flex-shrink-0 text-neutral-400" />
+                      <span>Select any node on the graph canvas to trace fund pathways.</span>
+                    </div>
+                  )}
+                </div>
+              </section>
 
-            <p className="text-sm text-neutral-600 mb-4">
-              Want to see where a bad guy's money went? <strong>Click any circle on the map.</strong> It will turn blue and show you exactly who they paid, and who those people paid.
-            </p>
-            
-            <div className="p-4 rounded-xl border border-blue-200 bg-blue-50/50 shadow-sm">
-              <div className="flex justify-between items-center mb-2">
-                <span className="font-medium text-sm text-blue-900">How far to track (Steps)</span>
-                <span className="text-sm font-bold text-blue-700">{bfsHops}</span>
-              </div>
-              <input 
-                type="range" 
-                min="1" max="5" 
-                value={bfsHops}
-                onChange={(e) => setBfsHops(parseInt(e.target.value))}
-                className="w-full accent-blue-600 cursor-pointer"
-              />
-              
-              {selectedNode ? (
-                <div className="mt-4 pt-4 border-t border-blue-200">
-                  <span className="text-xs text-blue-600 font-semibold uppercase tracking-wider block mb-2">Tracing money from {getAccountName(selectedNode)}</span>
-                  <div className="flex flex-wrap gap-2">
-                    {reachableAccounts.length === 0 ? (
-                      <span className="text-sm text-neutral-500">This account didn't send money to anyone.</span>
-                    ) : (
-                      reachableAccounts.map(r => (
-                        <span key={r.node} className="text-xs px-2 py-1 bg-white border border-blue-200 text-blue-800 rounded-md shadow-sm">
-                          {getAccountName(r.node)} <span className="text-blue-400">({r.hops} step{r.hops > 1 ? 's' : ''} away)</span>
-                        </span>
-                      ))
+              <hr className="border-neutral-200/80" />
+
+              {/* Section 3: Risk Ranking */}
+              <section className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <div className="p-1.5 bg-amber-50 text-amber-600 rounded-lg flex-shrink-0 border border-amber-100">
+                    <BarChart3 className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h2 className="font-semibold text-sm text-neutral-900 leading-tight">Account Risk Assessment</h2>
+                    <p className="text-xs text-neutral-500">Network Topology & Volume Metrics</p>
+                  </div>
+                </div>
+
+                {selectedNodeData ? (
+                  <div className="p-3.5 rounded-xl border border-neutral-200 bg-white space-y-3 shadow-xs">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <span className="text-[10px] text-neutral-400 uppercase font-semibold tracking-wider">Inspected Entity</span>
+                        <div className="text-sm font-semibold text-neutral-900">{getAccountName(selectedNodeData.node)}</div>
+                        <div className="text-[11px] font-mono text-neutral-400">{selectedNodeData.node}</div>
+                      </div>
+                      <div className={`px-2.5 py-1 rounded text-xs font-semibold border ${
+                        selectedNodeData.riskScore >= 50 ? 'bg-red-50 text-red-700 border-red-200' :
+                        selectedNodeData.riskScore >= 20 ? 'bg-amber-50 text-amber-700 border-amber-200' :
+                        'bg-emerald-50 text-emerald-700 border-emerald-200'
+                      }`}>
+                        Score: {selectedNodeData.riskScore}/100
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-3 gap-2 text-center text-xs">
+                      <div className="bg-neutral-50 p-2 rounded border border-neutral-100">
+                        <span className="block text-[10px] text-neutral-500 mb-0.5">Total Tx</span>
+                        <span className="font-bold text-neutral-800">{selectedNodeData.count}</span>
+                      </div>
+                      <div className="bg-neutral-50 p-2 rounded border border-neutral-100">
+                        <span className="block text-[10px] text-neutral-500 mb-0.5">In-Degree</span>
+                        <span className="font-bold text-neutral-800">{selectedNodeData.inDegree}</span>
+                      </div>
+                      <div className="bg-neutral-50 p-2 rounded border border-neutral-100">
+                        <span className="block text-[10px] text-neutral-500 mb-0.5">Out-Degree</span>
+                        <span className="font-bold text-neutral-800">{selectedNodeData.outDegree}</span>
+                      </div>
+                    </div>
+                    {selectedNodeData.riskScore >= 50 && (
+                      <div className="flex items-center gap-2 text-xs text-red-700 bg-red-50 p-2.5 rounded border border-red-200">
+                        <AlertTriangle className="w-4 h-4 shrink-0 text-red-500" />
+                        <span>High Risk: Node participates in cyclic layering rings.</span>
+                      </div>
                     )}
                   </div>
-                </div>
-              ) : (
-                <div className="mt-4 pt-4 border-t border-blue-200 flex items-start gap-2 text-sm text-blue-700 bg-white p-3 rounded-lg border">
-                  <Info className="w-5 h-5 flex-shrink-0 mt-0.5 text-blue-500" />
-                  <span><strong>Try it out:</strong> Go click a circle on the big map on the right to start tracking.</span>
-                </div>
-              )}
-            </div>
-          </section>
-
-          <hr className="border-neutral-100" />
-
-          {/* Section 3: Risk Ranking */}
-          <section>
-            <div className="flex items-center gap-2 mb-3">
-              <div className="p-1.5 bg-orange-100 text-orange-600 rounded flex-shrink-0">
-                <BarChart3 className="w-4 h-4" />
-              </div>
-              <h2 className="font-semibold text-lg leading-tight">Step 3: Who is the most dangerous?</h2>
-            </div>
-            
-            <p className="text-sm text-neutral-600 mb-4">
-              We do the math to find the most suspicious accounts based on how much money they move. <strong>The bigger the circle on the map, the higher the danger score.</strong>
-            </p>
-
-            {selectedNodeData ? (
-              <div className="p-4 rounded-xl border border-neutral-200 bg-white shadow-md">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <span className="text-xs text-neutral-500 uppercase font-bold tracking-wider">Account You Clicked</span>
-                    <div className="text-lg font-bold mt-1 text-neutral-900">{getAccountName(selectedNodeData.node)}</div>
-                  </div>
-                  <div className={`px-3 py-1 rounded-full text-sm font-bold border ${
-                    selectedNodeData.riskScore >= 50 ? 'bg-red-50 text-red-700 border-red-200' :
-                    selectedNodeData.riskScore >= 20 ? 'bg-orange-50 text-orange-700 border-orange-200' :
-                    'bg-green-50 text-green-700 border-green-200'
-                  }`}>
-                    Danger Score: {selectedNodeData.riskScore}
-                  </div>
-                </div>
-                <div className="grid grid-cols-3 gap-2 text-center text-sm">
-                  <div className="bg-neutral-50 p-2 rounded-lg border border-neutral-200">
-                    <span className="block text-xs text-neutral-500 mb-1">Total Transfers</span>
-                    <span className="font-bold text-neutral-800">{selectedNodeData.count}</span>
-                  </div>
-                  <div className="bg-purple-50 p-2 rounded-lg border border-purple-200">
-                    <span className="block text-xs text-purple-600 mb-1">Money In</span>
-                    <span className="font-bold text-purple-700">{selectedNodeData.inDegree}</span>
-                  </div>
-                  <div className="bg-blue-50 p-2 rounded-lg border border-blue-200">
-                    <span className="block text-xs text-blue-600 mb-1">Money Out</span>
-                    <span className="font-bold text-blue-700">{selectedNodeData.outDegree}</span>
-                  </div>
-                </div>
-                {selectedNodeData.riskScore >= 50 && (
-                  <div className="mt-4 flex gap-2 text-sm text-red-700 bg-red-50 p-3 rounded-lg border border-red-200">
-                    <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5 text-red-500" />
-                    <strong>Warning:</strong> This account is very dangerous because it is part of a money laundering loop.
+                ) : (
+                  <div className="bg-neutral-50 p-3 rounded-xl border border-neutral-200 space-y-2">
+                    <span className="text-[11px] font-semibold text-neutral-500 uppercase tracking-wider block">Highest Risk Accounts</span>
+                    <div className="space-y-1.5">
+                      {rankings.slice(0, 4).map((rank, i) => (
+                        <div 
+                          key={rank.node} 
+                          onClick={() => { setSelectedNode(rank.node); setShowCycles(false); }}
+                          className="flex items-center justify-between p-2 rounded-lg bg-white border border-neutral-200 hover:border-blue-300 hover:bg-blue-50/40 cursor-pointer transition-all text-xs"
+                        >
+                          <div className="flex items-center gap-2.5">
+                            <span className="w-5 h-5 rounded bg-neutral-100 text-neutral-600 flex items-center justify-center text-[11px] font-medium font-mono">
+                              {i+1}
+                            </span>
+                            <div>
+                              <span className="font-medium text-neutral-800 block">{getAccountName(rank.node)}</span>
+                              <span className="text-[10px] font-mono text-neutral-400">{rank.node}</span>
+                            </div>
+                          </div>
+                          <span className={`text-[11px] font-semibold px-2 py-0.5 rounded border ${
+                            rank.riskScore >= 50 ? 'bg-red-50 text-red-700 border-red-200' :
+                            rank.riskScore >= 20 ? 'bg-amber-50 text-amber-700 border-amber-200' :
+                            'bg-emerald-50 text-emerald-700 border-emerald-200'
+                          }`}>
+                            {rank.riskScore}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
-              </div>
-            ) : (
-              <div className="bg-white p-4 rounded-xl border border-neutral-200 shadow-sm">
-                <span className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-3 block">Top 3 Most Dangerous Accounts</span>
-                <div className="space-y-2">
-                  {rankings.slice(0, 3).map((rank, i) => (
-                    <div 
-                      key={rank.node} 
-                      onClick={() => { setSelectedNode(rank.node); setShowCycles(false); }}
-                      className="flex items-center justify-between p-3 rounded-lg border border-neutral-100 bg-neutral-50 hover:bg-blue-50 hover:border-blue-200 cursor-pointer transition-all"
-                    >
-                      <div className="flex items-center gap-3">
-                        <span className="w-6 h-6 rounded-full bg-neutral-200 text-neutral-600 flex items-center justify-center text-xs font-bold">
-                          {i+1}
-                        </span>
-                        <span className="font-medium text-neutral-800">{getAccountName(rank.node)}</span>
-                      </div>
-                      <span className={`text-xs font-bold px-2 py-1 rounded-full border ${
-                        rank.riskScore >= 50 ? 'bg-red-50 text-red-700 border-red-200' :
-                        rank.riskScore >= 20 ? 'bg-orange-50 text-orange-700 border-orange-200' :
-                        'bg-green-50 text-green-700 border-green-200'
-                      }`}>
-                        Danger: {rank.riskScore}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </section>
+              </section>
             </>
           )}
         </div>
@@ -271,26 +271,26 @@ export default function InteractiveDashboard() {
         
         {/* Floating Legend */}
         <div className="absolute top-6 right-6 bg-neutral-900/90 backdrop-blur border border-neutral-700/80 text-neutral-300 p-3 rounded-lg text-xs space-y-2 shadow-2xl z-20 max-w-xs">
-          <div className="font-bold text-white uppercase tracking-wider text-[10px] text-neutral-400">How to read this map</div>
+          <div className="font-bold text-neutral-400 uppercase tracking-wider text-[10px]">Graph Legend</div>
           
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-neutral-800 border-[2px] border-neutral-400 shrink-0"></div>
-            <span><strong className="text-white">Circle</strong> = Bank Account (Bigger = Riskier)</span>
+            <span><strong className="text-white">Node:</strong> Account (Radius = Risk)</span>
           </div>
           
           <div className="flex items-center gap-2">
             <div className="w-4 h-0.5 bg-neutral-500 shrink-0"></div>
-            <span><strong className="text-white">Arrow</strong> = Money Transfer</span>
+            <span><strong className="text-white">Edge:</strong> Fund Transfer</span>
           </div>
           
           <div className="flex items-center gap-2">
             <div className="w-4 h-1 rounded-full bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.8)] shrink-0"></div>
-            <span className="text-red-400 font-medium">Red = Laundering Loop</span>
+            <span className="text-red-400 font-medium">Red: Cyclic Flow (DFS)</span>
           </div>
           
           <div className="flex items-center gap-2">
             <div className="w-4 h-1 rounded-full bg-blue-500 shadow-[0_0_6px_rgba(59,130,246,0.8)] shrink-0"></div>
-            <span className="text-blue-400 font-medium">Blue = Tracked Flow</span>
+            <span className="text-blue-400 font-medium">Blue: Downstream Path (BFS)</span>
           </div>
         </div>
       </div>

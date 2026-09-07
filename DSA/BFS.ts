@@ -1,13 +1,15 @@
 import { AdjacencyList, ReachableAccount } from '../src/types';
 
 /**
- * Breadth-First Search (BFS) for Reachability Tracing
+ * Breadth-First Search (BFS) for Reachability Analysis
  * 
- * HOW TO EXPLAIN THIS TO STAFF:
- * "Imagine dropping a stone in a pond. BFS looks at the ripples. 
- * If we know an account is bad, BFS looks at all the accounts it directly sent money to (Ripple 1). 
- * Then it looks at all the accounts THOSE accounts sent money to (Ripple 2). 
- * This traces the exact 'blast radius' of stolen funds so we can freeze them."
+ * Traverses the transaction network level-by-level using a FIFO queue
+ * to determine all recipient accounts reachable within `maxHops` from a target origin node.
+ * 
+ * @param graph Directed adjacency list mapping sender accounts to recipient arrays
+ * @param startNode Origin account ID to trace
+ * @param maxHops Maximum traversal depth (radius)
+ * @returns Array of reachable accounts along with their distance (hop count)
  */
 export function findReachableAccounts(graph: AdjacencyList, startNode: string, maxHops: number): ReachableAccount[] {
   if (!graph[startNode]) return [];

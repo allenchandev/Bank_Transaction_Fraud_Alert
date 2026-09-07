@@ -1,39 +1,34 @@
-# Data Structures and Algorithms (DSA) Concepts
+# Graph-Based Fraud Detection Architecture
 
-This folder contains simplified explanations of the core Data Structures and Algorithms used in the Bank Transaction Fraud Alert System.
+This document details the algorithmic foundations and data structures utilized in the Bank Transaction Fraud Alert System.
 
-## The Problem
-We need to analyze bank transactions to find:
-1. **Circular fund transfers:** Money moving from A to B to C and back to A (often a sign of money laundering or fraud).
-2. **Account reachability:** Tracing where money could have flowed from a suspicious account within a certain number of steps.
-3. **High-activity accounts:** Finding accounts involved in the most transactions.
+---
 
-## DSA Concepts Mapping
+## 1. Problem Formulation
 
-Here is how the core Data Structures and Algorithms directly map to the project features:
+Financial fraud networks frequently employ complex transaction structures to evade rule-based filters:
+1. **Circular Layering:** Routing stolen capital through multi-hop cycles ($A \rightarrow B \rightarrow C \rightarrow A$) to obscure provenance.
+2. **Dispersal & Mule Networks:** Rapidly diffusing illicit funds across downstream accounts to prevent total asset freezing.
+3. **High-Velocity Hubs:** Shell entities exhibiting disproportionate transaction concentration and abnormal out-degree dispersal.
 
-| DSA Concept | Your Project Use |
-| :--- | :--- |
-| **Graph** | Represent bank transactions |
-| **Adjacency List** | Store transaction connections |
-| **DFS** | Detect circular transaction patterns |
-| **BFS** | Find accounts within N transaction hops |
-| **Sorting** | Rank accounts by transaction count |
-| **Queue** | BFS implementation |
-| **Stack/Recursion** | DFS implementation |
-| **HashMap/Dictionary** | Store adjacency lists |
-| **Risk Score** | Combine suspicious indicators |
+---
 
-## Technical Terms Used
+## 2. Algorithmic Mapping
 
-*   **Graph:** A mathematical structure used to model pairwise relations between objects. It's made up of Nodes (Vertices) and Edges.
-*   **Node (Vertex):** The fundamental unit of a graph. In our system, a **Node represents a Bank Account**.
-*   **Edge:** A connection between two nodes. In our system, an **Edge represents a Transaction** between two accounts.
-*   **Directed Graph:** A graph where the edges have a direction. If Account A sends money to Account B, the edge goes from A $\rightarrow$ B, but not vice-versa (unless B also sends money to A).
-*   **Adjacency List:** A way to represent a graph in code. It's usually a dictionary (or Map) where every key is a Node, and the value is a list of all Nodes it points to.
-    *   *Example:* `{ "Acc_A": ["Acc_B", "Acc_C"], "Acc_B": ["Acc_D"] }`
-*   **Cycle:** A path in a graph that starts and ends at the exact same node, following the direction of the edges.
-*   **In-Degree & Out-Degree:** 
-    *   In-degree: The number of transactions coming *into* an account.
-    *   Out-degree: The number of transactions going *out* of an account.
-    *   Total Activity = In-degree + Out-degree.
+| Data Structure / Algorithm | Technical Implementation | Practical Application |
+| :--- | :--- | :--- |
+| **Directed Graph ($G = (V, E)$)** | Adjacency List (`Record<string, string[]>`) | Network topology representing accounts ($V$) and transfers ($E$) |
+| **Depth-First Search (DFS)** | 3-state recursion with recursion stack tracking | Detection of cyclic transaction patterns / laundering loops |
+| **Breadth-First Search (BFS)** | FIFO Queue (`shift()`) with visited set | Downstream reachability analysis and blast-radius tracing within $N$ hops |
+| **Degree Centrality** | In-degree and Out-degree calculation | Identification of mule routing hubs and accumulation accounts |
+| **Composite Heuristic Scoring** | Multi-factor weighted formula | Risk quantification ($0 - 100$) for triage and automated alerting |
+
+---
+
+## 3. Core Terminology & Complexity
+
+- **Adjacency List:** Memory-efficient representation optimized for sparse financial transaction graphs. Lookup complexity for out-neighbors is $\mathcal{O}(1)$.
+- **Cycle Detection (DFS):** Traverses the directed graph in $\mathcal{O}(V + E)$ time and $\mathcal{O}(V)$ auxiliary space, capturing closed loops without infinite recursion.
+- **Reachability (BFS):** Explores shortest path hop-distances in $\mathcal{O}(V + E)$ time, isolating compromised network branches level by level.
+- **In-Degree / Out-Degree:** In-degree measures incoming transaction volume; out-degree measures outbound dispersal. An elevated out-degree-to-in-degree ratio often indicates fund fragmentation.
+

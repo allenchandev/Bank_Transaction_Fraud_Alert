@@ -1,6 +1,0 @@
-{
-  "name": "Bank Transaction Fraud Alert System",
-  "description": "A tool to detect cyclic transactions and trace reachable accounts using graph algorithms.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}

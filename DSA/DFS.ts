@@ -1,13 +1,13 @@
 import { AdjacencyList, Cycle } from '../src/types';
 
 /**
- * Depth-First Search (DFS) for Cycle Detection
+ * Depth-First Search (DFS) for Cyclic Pattern Detection
  * 
- * HOW TO EXPLAIN THIS TO STAFF:
- * "Imagine following a specific stolen dollar bill. DFS picks one account and traces 
- * that bill as far as it goes. If the dollar bill ends up back in the account it started from, 
- * we've found a 'Loop' (Cycle). Criminals do this to 'clean' money (Money Laundering). 
- * DFS is the algorithm that hunts down these loops automatically."
+ * Performs cycle detection on a directed graph using 3-state tracking
+ * (visited set and active recursion stack) to identify circular fund transfers / layering rings.
+ * 
+ * @param graph Directed adjacency list mapping sender accounts to recipient arrays
+ * @returns Array of unique detected cycles with full path node chains
  */
 export function detectCycles(graph: AdjacencyList): Cycle[] {
   // We use this to remember accounts we've already completely checked
