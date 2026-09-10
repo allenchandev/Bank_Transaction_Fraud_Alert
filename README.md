@@ -36,8 +36,8 @@ Millions of financial transactions occur daily. Analyzing spreadsheets or tabula
 ## 🛠️ Tech Stack
 
 - **Frontend:** React 19, TypeScript, Vite
-- **Styling:** Tailwind CSS, Lucide Icons, Motion
-- **Graph Algorithms:** Custom TypeScript DSA implementations (`/DSA/DFS.ts`, `/DSA/BFS.ts`)
+- **Styling:** Tailwind CSS, Lucide Icons
+- **Backend / Algorithms:** Python 3 (BFS & DFS implementations in `DSA/bfs.py`, `DSA/dfs.py`), zero-dependency API engine (`server.py`) with automatic TypeScript fallback (`/DSA/DFS.ts`, `/DSA/BFS.ts`)
 
 ---
 
@@ -60,13 +60,19 @@ Millions of financial transactions occur daily. Analyzing spreadsheets or tabula
    npm install
    ```
 
-3. **Start the development server:**
+3. **Run the Python DSA Engine Server:**
+   ```bash
+   npm run server
+   # or: python server.py
+   ```
+
+4. **Run the React Frontend (in another terminal):**
    ```bash
    npm run dev
    ```
-   Open [http://localhost:3000](http://localhost:3000) in your browser.
+   Open [http://localhost:5173](http://localhost:5173) in your browser. The dashboard header will display **"Python BFS/DFS Active"** with a green pulse indicator.
 
-4. **Build for production:**
+5. **Build for production:**
    ```bash
    npm run build
    ```

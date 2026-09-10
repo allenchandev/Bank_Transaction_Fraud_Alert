@@ -79,11 +79,11 @@ class FraudEngineHandler(BaseHTTPRequestHandler):
 
 def run_server():
     server = HTTPServer((HOST, PORT), FraudEngineHandler)
-    print(f"==================================================")
-    print(f"🚀 Python Fraud Engine Server running at http://{HOST}:{PORT}")
-    print(f"📡 Serving endpoints: /api/bfs, /api/dfs, /api/health")
-    print(f"💡 Ready to handle BFS/DFS requests from the website!")
-    print(f"==================================================")
+    print("==================================================")
+    print(f"[OK] Python Fraud Engine Server running at http://{HOST}:{PORT}")
+    print("Endpoints: /api/bfs, /api/dfs, /api/health")
+    print("Ready to handle BFS/DFS requests from the website!")
+    print("==================================================")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
