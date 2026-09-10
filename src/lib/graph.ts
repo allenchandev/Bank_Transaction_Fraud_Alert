@@ -1,9 +1,49 @@
 import { AdjacencyList, Cycle, ReachableAccount, AccountRanking, Transaction } from '../types';
 
-import { detectCycles } from '../../DSA/DFS';
-import { findReachableAccounts } from '../../DSA/BFS';
+import { detectCycles as localDetectCycles } from '../../DSA/DFS';
+import { findReachableAccounts as localFindReachableAccounts } from '../../DSA/BFS';
 
-export { detectCycles, findReachableAccounts };
+const PYTHON_API_URL = 'http://127.0.0.1:8000/api';
+
+/**
+ * Fetch cycle detection results from the Python backend (DFS).
+ * Falls back to local implementation if the Python backend is offline.
+ */
+export async function fetchPythonDFS(graph: AdjacencyList): Promise<{ cycles: Cycle[]; source: 'python' | 'fallback' }> {
+  try {
+    const res = await fetch(`${PYTHON_API_URL}/dfs`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ graph })
+    });
+    if (!res.ok) throw new Error('Python API responded with error');
+    const data = await res.json();
+    return { cycles: data.cycles, source: 'python' };
+  } catch {
+    return { cycles: localDetectCycles(graph), source: 'fallback' };
+  }
+}
+
+/**
+ * Fetch reachability results from the Python backend (BFS).
+ * Falls back to local implementation if the Python backend is offline.
+ */
+export async function fetchPythonBFS(graph: AdjacencyList, startNode: string, maxHops: number): Promise<{ reachableAccounts: ReachableAccount[]; source: 'python' | 'fallback' }> {
+  try {
+    const res = await fetch(`${PYTHON_API_URL}/bfs`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ graph, start_node: startNode, max_hops: maxHops })
+    });
+    if (!res.ok) throw new Error('Python API responded with error');
+    const data = await res.json();
+    return { reachableAccounts: data.reachableAccounts, source: 'python' };
+  } catch {
+    return { reachableAccounts: localFindReachableAccounts(graph, startNode, maxHops), source: 'fallback' };
+  }
+}
+
+export { localDetectCycles as detectCycles, localFindReachableAccounts as findReachableAccounts };
 
 // Convert a flat list of transactions to an Adjacency List (Graph)
 export function buildGraph(transactions: Transaction[]): AdjacencyList {

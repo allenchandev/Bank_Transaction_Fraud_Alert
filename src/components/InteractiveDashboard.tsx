@@ -1,8 +1,9 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import NetworkGraph from './NetworkGraph';
 import { mockTransactions, mockAccounts } from '../lib/mockData';
-import { buildGraph, detectCycles, findReachableAccounts, rankAccounts } from '../lib/graph';
-import { ShieldAlert, RefreshCw, Target, BarChart3, Info, AlertTriangle, HelpCircle, X } from 'lucide-react';
+import { buildGraph, fetchPythonDFS, fetchPythonBFS, rankAccounts } from '../lib/graph';
+import { Cycle, ReachableAccount } from '../types';
+import { ShieldAlert, RefreshCw, Target, BarChart3, Info, AlertTriangle, HelpCircle, X, CheckCircle2 } from 'lucide-react';
 
 export default function InteractiveDashboard() {
   // Application State
@@ -11,17 +12,44 @@ export default function InteractiveDashboard() {
   const [bfsHops, setBfsHops] = useState(2);
   const [showFAQ, setShowFAQ] = useState(false);
 
-  // Compute DSA Data
+  // Backend Engine Status & Algorithm Data State
+  const [cycles, setCycles] = useState<Cycle[]>([]);
+  const [reachableAccounts, setReachableAccounts] = useState<ReachableAccount[]>([]);
+  const [pythonStatus, setPythonStatus] = useState<'connected' | 'offline' | 'loading'>('loading');
+
+  // Compute Base Graph
   const graph = useMemo(() => buildGraph(mockTransactions), []);
-  const cycles = useMemo(() => detectCycles(graph), [graph]);
-  const rankings = useMemo(() => rankAccounts(graph, mockTransactions, cycles), [graph, cycles]);
-  
-  // BFS Reachability updates dynamically when a node is selected and hops change
-  const reachableAccounts = useMemo(() => {
-    if (!selectedNode) return [];
-    return findReachableAccounts(graph, selectedNode, bfsHops);
+
+  // Fetch DFS Cycle Detection from Python Engine
+  useEffect(() => {
+    let isMounted = true;
+    fetchPythonDFS(graph).then(res => {
+      if (isMounted) {
+        setCycles(res.cycles);
+        setPythonStatus(res.source === 'python' ? 'connected' : 'offline');
+      }
+    });
+    return () => { isMounted = false; };
+  }, [graph]);
+
+  // Fetch BFS Reachability from Python Engine dynamically
+  useEffect(() => {
+    let isMounted = true;
+    if (!selectedNode) {
+      setReachableAccounts([]);
+      return;
+    }
+
+    fetchPythonBFS(graph, selectedNode, bfsHops).then(res => {
+      if (isMounted) {
+        setReachableAccounts(res.reachableAccounts);
+        if (res.source === 'python') setPythonStatus('connected');
+      }
+    });
+    return () => { isMounted = false; };
   }, [graph, selectedNode, bfsHops]);
 
+  const rankings = useMemo(() => rankAccounts(graph, mockTransactions, cycles), [graph, cycles]);
   const selectedNodeData = selectedNode ? rankings.find(r => r.node === selectedNode) : null;
   const getAccountName = (id: string) => mockAccounts.find(a => a.id === id)?.name || id;
 
@@ -34,9 +62,19 @@ export default function InteractiveDashboard() {
         {/* Header */}
         <div className="p-6 border-b border-neutral-800 bg-neutral-900 text-white relative">
           <div className="flex justify-between items-start">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-medium mb-4 border border-blue-500/20">
-              <ShieldAlert className="w-3.5 h-3.5" />
-              Graph Intelligence Engine
+            <div className="flex items-center gap-2 mb-4 flex-wrap">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-medium border border-blue-500/20">
+                <ShieldAlert className="w-3.5 h-3.5" />
+                Graph Intelligence Engine
+              </div>
+              <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium border ${
+                pythonStatus === 'connected' 
+                  ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' 
+                  : 'bg-amber-500/10 text-amber-400 border-amber-500/30'
+              }`}>
+                <span className={`w-1.5 h-1.5 rounded-full ${pythonStatus === 'connected' ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'}`} />
+                {pythonStatus === 'connected' ? 'Python BFS/DFS Active' : 'Offline (Fallback Mode)'}
+              </div>
             </div>
             <button 
               onClick={() => setShowFAQ(!showFAQ)}
