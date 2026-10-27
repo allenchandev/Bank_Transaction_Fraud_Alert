@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import type { RoleMode } from '../../types';
+import type { RoleMode } from '@/types';
 import { 
   ShieldAlert, 
   ShieldCheck,
