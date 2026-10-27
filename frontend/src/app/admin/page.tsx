@@ -34,6 +34,7 @@ import { InvestigationCasesView } from '@/features/investigation/InvestigationCa
 import { AuditLogsView } from '@/features/investigation/AuditLogsView';
 import { DetectionRulesView } from '@/features/investigation/DetectionRulesView';
 import { AiFraudIntelligenceView } from '@/features/investigation/AiFraudIntelligenceView';
+import { FraudDetectionPanel } from '@/components/AIFraudDetection/FraudDetectionPanel';
 
 export default function AdminConsolePage() {
   const router = useRouter();
