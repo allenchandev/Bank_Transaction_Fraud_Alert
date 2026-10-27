@@ -14,6 +14,14 @@ from app.api.routes_ledger import router as ledger_router
 from app.api.routes_investigation import router as investigation_router
 from app.api.routes_alerts import router as alerts_router
 from app.api.routes_admin import router as admin_router
+from app.api.routes_fraud_ai import router as fraud_ai_router
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
+
+UPLOAD_DIR = Path(__file__).resolve().parent.parent / "data" / "uploads"
+UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+SAMPLES_DIR = Path(__file__).resolve().parent.parent / "data" / "samples"
+SAMPLES_DIR.mkdir(parents=True, exist_ok=True)
 
 
 @asynccontextmanager
@@ -45,6 +53,11 @@ app.include_router(ledger_router)
 app.include_router(investigation_router)
 app.include_router(alerts_router)
 app.include_router(admin_router)
+app.include_router(fraud_ai_router)
+
+# Mount Static Files for Forensic Evidence Inspector
+app.mount("/api/fraud-ai/uploads", StaticFiles(directory=str(UPLOAD_DIR)), name="fraud_uploads")
+app.mount("/api/fraud-ai/samples", StaticFiles(directory=str(SAMPLES_DIR)), name="fraud_samples")
 
 
 @app.get("/health", tags=["System Health"])
