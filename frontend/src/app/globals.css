@@ -1,0 +1,91 @@
+@import "tailwindcss";
+@import "@xyflow/react/dist/style.css";
+
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-border: #e2e8f0;
+  --accent-orange: #ea580c;
+  --accent-orange-hover: #c2410c;
+  --accent-orange-glow: rgba(234, 88, 12, 0.15);
+  --muted: #64748b;
+}
+
+body {
+  background-color: #f8fafc;
+  color: #0f172a;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* React Flow customizations for Light Theme */
+.react-flow__pane {
+  background: #f8fafc !important;
+}
+
+.react-flow__background {
+  background: #f8fafc !important;
+}
+
+.react-flow__controls {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08) !important;
+}
+
+.react-flow__controls-button {
+  background: #ffffff !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  fill: #64748b !important;
+}
+
+.react-flow__controls-button:hover {
+  background: #f1f5f9 !important;
+  fill: #0f172a !important;
+}
+
+.react-flow__attribution {
+  display: none !important;
+}
+
+/* Keyframes for cycle pulsing */
+@keyframes cyclePulseOrange {
+  0% {
+    stroke-dashoffset: 24;
+    filter: drop-shadow(0 0 2px rgba(234, 88, 12, 0.6));
+  }
+  50% {
+    filter: drop-shadow(0 0 6px rgba(234, 88, 12, 0.9));
+  }
+  100% {
+    stroke-dashoffset: 0;
+    filter: drop-shadow(0 0 2px rgba(234, 88, 12, 0.6));
+  }
+}
+
+.cycle-pulse-edge path {
+  stroke: #ea580c !important;
+  stroke-width: 2.5px !important;
+  animation: cyclePulseOrange 1.4s linear infinite !important;
+}

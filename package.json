@@ -1,28 +1,13 @@
 {
-  "name": "bank-transaction-fraud-alert-system",
-  "private": true,
+  "name": "aegis-bank-intelligence",
   "version": "1.0.0",
-  "type": "module",
+  "private": true,
+  "description": "Aegis Bank Intelligence - Full Stack Simulation & Forensic Platform",
   "scripts": {
-    "dev": "vite",
-    "server": "python server.py",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "lint": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.1.14",
-    "@vitejs/plugin-react": "^5.0.4",
-    "lucide-react": "^0.546.0",
-    "react": "^19.0.1",
-    "react-dom": "^19.0.1",
-    "tailwindcss": "^4.1.14"
-  },
-  "devDependencies": {
-    "@types/node": "^22.14.0",
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
-    "typescript": "~5.8.2",
-    "vite": "^6.2.3"
+    "dev": "npm run start",
+    "start": "bash dev.sh",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && ./venv/bin/python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload",
+    "test": "cd backend && ./venv/bin/python -m pytest tests -v -o pythonpath=."
   }
 }
