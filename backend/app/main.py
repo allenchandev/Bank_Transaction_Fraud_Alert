@@ -15,6 +15,7 @@ from app.api.routes_investigation import router as investigation_router
 from app.api.routes_alerts import router as alerts_router
 from app.api.routes_admin import router as admin_router
 from app.api.routes_fraud_ai import router as fraud_ai_router
+from app.api.routes_fraud_direct import router as fraud_direct_router
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 
@@ -54,6 +55,7 @@ app.include_router(investigation_router)
 app.include_router(alerts_router)
 app.include_router(admin_router)
 app.include_router(fraud_ai_router)
+app.include_router(fraud_direct_router)
 
 # Mount Static Files for Forensic Evidence Inspector
 app.mount("/api/fraud-ai/uploads", StaticFiles(directory=str(UPLOAD_DIR)), name="fraud_uploads")
