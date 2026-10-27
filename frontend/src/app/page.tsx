@@ -10,6 +10,7 @@ import {
   Activity,
   LogIn,
   CheckCircle2,
+  Sparkles,
 } from 'lucide-react';
 import { api } from '@/lib/api';
 
