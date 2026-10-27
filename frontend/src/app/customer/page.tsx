@@ -27,6 +27,7 @@ import { TransactionHistoryView } from '@/features/customer/TransactionHistoryVi
 import { LimitsBudgetView } from '@/features/customer/LimitsBudgetView';
 import { NotificationsView } from '@/features/customer/NotificationsView';
 import { AiFraudIntelligenceView } from '@/features/investigation/AiFraudIntelligenceView';
+import { FraudDetectionPanel } from '@/components/AIFraudDetection/FraudDetectionPanel';
 
 export default function CustomerPortalPage() {
   const router = useRouter();
@@ -274,7 +275,9 @@ export default function CustomerPortalPage() {
               )}
 
               {activeTab === 'ai_scanner' && (
-                <AiFraudIntelligenceView />
+                <div className="space-y-4">
+                  <FraudDetectionPanel roleMode="Subject" />
+                </div>
               )}
 
               {activeTab === 'deposit_withdraw' && (
