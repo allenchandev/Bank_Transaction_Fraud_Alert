@@ -1,5 +1,5 @@
 import React from 'react';
-import type { RoleMode } from '../types';
+import type { RoleMode } from '@/types';
 import { ShieldCheck, ShieldAlert, FileText, UserCheck, Briefcase, GraduationCap, Scale, Cpu } from 'lucide-react';
 
 
