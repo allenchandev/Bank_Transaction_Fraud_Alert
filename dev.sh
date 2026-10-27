@@ -16,6 +16,10 @@ elif command -v python3 >/dev/null 2>&1; then
     PYTHON_BIN="$(command -v python3)"
 fi
 
+if [ -d "$BACKEND_DIR/data/tessdata" ]; then
+    export TESSDATA_PREFIX="$BACKEND_DIR/data/tessdata"
+fi
+
 echo "=================================================="
 echo "🛡️  Aegis Bank Intelligence - Starting Services..."
 echo "=================================================="
