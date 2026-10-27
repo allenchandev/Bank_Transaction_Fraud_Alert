@@ -274,7 +274,9 @@ export default function AdminConsolePage() {
               )}
 
               {activeTab === 'ai_fraud' && (
-                <AiFraudIntelligenceView />
+                <div className="space-y-4">
+                  <FraudDetectionPanel roleMode="Auditor" />
+                </div>
               )}
 
               {activeTab === 'network' && (
