@@ -1,3 +1,5 @@
+export type RoleMode = 'Executive' | 'Auditor' | 'Data Scientist' | 'Student' | 'Subject' | 'Legal Counsel';
+
 export interface Customer {
   id: number;
   customer_ref: string;
