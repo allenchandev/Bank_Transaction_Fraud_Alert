@@ -14,6 +14,7 @@ import {
   AlertTriangle,
   Building2,
   RefreshCw,
+  Sparkles,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { api } from '@/lib/api';
@@ -25,6 +26,7 @@ import { DepositWithdrawView } from '@/features/customer/DepositWithdrawView';
 import { TransactionHistoryView } from '@/features/customer/TransactionHistoryView';
 import { LimitsBudgetView } from '@/features/customer/LimitsBudgetView';
 import { NotificationsView } from '@/features/customer/NotificationsView';
+import { AiFraudIntelligenceView } from '@/features/investigation/AiFraudIntelligenceView';
 
 export default function CustomerPortalPage() {
   const router = useRouter();
