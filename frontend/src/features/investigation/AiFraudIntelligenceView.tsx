@@ -538,7 +538,7 @@ export const AiFraudIntelligenceView: React.FC = () => {
               </div>
               <p className="text-xs text-slate-600 leading-relaxed">
                 Rather than treating fraud as a static binary flag, our system uses <strong>Bayes’ Theorem</strong> to continually shift belief odds.
-                Starting from an unconditioned baseline retail fraud prior $P(\text{Fraud}) = 2.5\%$, each incoming independent evidence signal $E_k$ updates the odds via calibrated Likelihood Ratios (Bayes Factors).
+                Starting from an unconditioned baseline retail fraud prior P(Fraud) = 2.5%, each incoming independent evidence signal E_k updates the odds via calibrated Likelihood Ratios (Bayes Factors).
               </p>
               <div className="p-4 rounded-xl bg-slate-900 text-orange-400 font-mono text-xs overflow-x-auto">
                 P(Fraud | E1..Ek) = [ P(Fraud) * Π P(Ei | Fraud) ] / [ P(Fraud) * Π P(Ei | Fraud) + P(~Fraud) * Π P(Ei | ~Fraud) ]
