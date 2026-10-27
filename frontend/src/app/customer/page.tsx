@@ -99,6 +99,7 @@ export default function CustomerPortalPage() {
   const navItems = [
     { id: 'dashboard', label: 'Overview', icon: LayoutDashboard },
     { id: 'transfer', label: 'Money Transfer', icon: Send },
+    { id: 'ai_scanner', label: 'AI Receipt Verifier', icon: Sparkles },
     { id: 'deposit_withdraw', label: 'Deposit & Cash', icon: ArrowDownUp },
     { id: 'transactions', label: 'Statement & Ledger', icon: History },
     { id: 'limits', label: 'Limits & Budget', icon: Sliders },
@@ -261,6 +262,10 @@ export default function CustomerPortalPage() {
                   limits={currentLimits}
                   onSuccess={loadCustomerData}
                 />
+              )}
+
+              {activeTab === 'ai_scanner' && (
+                <AiFraudIntelligenceView />
               )}
 
               {activeTab === 'deposit_withdraw' && (
