@@ -123,7 +123,7 @@ export default function LandingGatewayPage() {
               </div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">Fraud Intelligence Console</h2>
               <p className="text-sm text-slate-600 leading-relaxed mb-6">
-                Investigate money flows, trace network transactions, analyze risk scores, manage active alerts, and freeze accounts.
+                Graph investigation, cyclic ring detection, AI image forensics, Bayesian sequential updating, and AO* heuristic search.
               </p>
             </div>
 
