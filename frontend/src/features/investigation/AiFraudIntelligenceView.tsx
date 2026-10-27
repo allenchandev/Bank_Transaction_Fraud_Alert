@@ -438,7 +438,7 @@ export const AiFraudIntelligenceView: React.FC = () => {
                     onChange={(e) => setFlags({ ...flags, flag_amount_anomaly: e.target.checked })}
                     className="rounded text-orange-600"
                   />
-                  <span>Amount Anomaly (>3.5σ baseline deviation)</span>
+                  <span>Amount Anomaly (&gt;3.5σ baseline deviation)</span>
                 </label>
                 <label className="flex items-center gap-2">
                   <input
