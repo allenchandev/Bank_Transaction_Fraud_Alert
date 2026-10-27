@@ -154,6 +154,15 @@ export default function AdminConsolePage() {
             )}
 
             <button
+              onClick={() => router.push('/ai-fraud')}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition cursor-pointer shadow-2xs border border-slate-700"
+              title="Launch full multimodal fraud inspection suite"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-orange-400" />
+              <span>AI Fraud Detection</span>
+            </button>
+
+            <button
               onClick={handleResetData}
               disabled={isResetting}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 text-xs font-semibold transition cursor-pointer disabled:opacity-50"
