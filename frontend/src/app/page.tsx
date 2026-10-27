@@ -65,6 +65,12 @@ export default function LandingGatewayPage() {
             )}
           </div>
           <button
+            onClick={() => router.push('/ai-fraud')}
+            className="flex items-center gap-1.5 text-xs font-bold text-white px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 shadow-2xs transition cursor-pointer"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-orange-400" /> AI Fraud Detection
+          </button>
+          <button
             onClick={() => router.push('/login')}
             className="flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 shadow-2xs transition cursor-pointer"
           >
