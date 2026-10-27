@@ -259,4 +259,36 @@ export const api = {
     });
     return handleResponse(res);
   },
+
+  // ----------------------------------------------------
+  // AI Multimodal & Mathematical Fraud Intelligence
+  // ----------------------------------------------------
+  async getFraudAiSamples(): Promise<{ samples: any[] }> {
+    const res = await fetch(`${API_BASE_URL}/api/fraud-ai/samples`, { cache: 'no-store' });
+    return handleResponse(res);
+  },
+
+  async analyzeTransactionAi(payload: {
+    transaction_id?: string;
+    amount: number;
+    beneficiary_account?: string;
+    utr?: string;
+    flags?: Record<string, boolean>;
+    notes?: string;
+  }): Promise<any> {
+    const res = await fetch(`${API_BASE_URL}/api/fraud-ai/analyze-transaction`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    return handleResponse(res);
+  },
+
+  async analyzeReceiptScreenshot(formData: FormData): Promise<any> {
+    const res = await fetch(`${API_BASE_URL}/api/fraud-ai/analyze-screenshot`, {
+      method: 'POST',
+      body: formData,
+    });
+    return handleResponse(res);
+  },
 };
