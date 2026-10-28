@@ -151,10 +151,10 @@ export default function CustomerPortalPage() {
 
             <button
               onClick={() => router.push('/ai-fraud')}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-orange-600 hover:bg-orange-700 text-white text-xs font-bold transition cursor-pointer shadow-2xs"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition cursor-pointer shadow-2xs border border-slate-700"
               title="Verify receipts and payment screenshots"
             >
-              <Sparkles className="w-3.5 h-3.5 text-white" />
+              <Sparkles className="w-3.5 h-3.5 text-slate-300" />
               <span className="hidden sm:inline">AI Fraud Detection</span>
             </button>
 
