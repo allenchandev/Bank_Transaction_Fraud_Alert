@@ -218,7 +218,7 @@ export const TransferView: React.FC<TransferViewProps> = ({
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             disabled={isFrozen}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-sm focus:outline-none focus:border-orange-500 transition disabled:opacity-50"
+            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-sm focus:outline-none focus:border-slate-700 transition disabled:opacity-50"
             placeholder="Payment note"
           />
         </div>
@@ -227,7 +227,7 @@ export const TransferView: React.FC<TransferViewProps> = ({
         <button
           type="submit"
           disabled={isSubmitting || hasValidationError || isFrozen || !recipientRef || amount <= 0}
-          className="w-full py-3 rounded-xl bg-orange-600 hover:bg-orange-700 text-white font-bold text-sm shadow-sm transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-sm transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isSubmitting ? (
             <>
