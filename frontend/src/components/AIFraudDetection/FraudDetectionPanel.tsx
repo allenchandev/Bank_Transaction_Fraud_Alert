@@ -1492,7 +1492,6 @@ export const FraudDetectionPanel: React.FC<{ roleMode?: RoleMode }> = ({ roleMod
               </div>
             </>
           )}
-        </div>
 
           {/* 3. Disjoint Set Union (DSU / Union-Find) Syndicate Clustering & Cycle Detection */}
           <div className="bg-slate-50/50 border border-slate-200 rounded-xl p-5 mt-6">
