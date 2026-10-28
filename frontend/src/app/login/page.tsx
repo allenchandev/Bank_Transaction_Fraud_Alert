@@ -170,7 +170,7 @@ export default function LoginPage() {
                   >
                     {accounts.map((acc) => (
                       <option key={acc.account_ref} value={acc.account_ref}>
-                        {acc.account_ref} • {acc.customer_name} (${Number(acc.balance).toLocaleString()})
+                        {acc.account_ref} • {acc.customer_name} (₹{Number(acc.balance).toLocaleString()})
                       </option>
                     ))}
                   </select>
@@ -186,7 +186,7 @@ export default function LoginPage() {
                   <div className="flex justify-between text-slate-600">
                     <span>Current Balance:</span>
                     <span className="font-semibold text-emerald-600">
-                      ${Number(selectedAccObj.balance).toLocaleString()}
+                      ₹{Number(selectedAccObj.balance).toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between text-slate-600">
