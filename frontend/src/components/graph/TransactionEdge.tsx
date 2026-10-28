@@ -76,9 +76,9 @@ export const TransactionEdge = memo(({
                 ? 'bg-blue-600 text-white shadow-sm'
                 : 'bg-white text-slate-700 border border-slate-200'
             }`}
-            title={`Amount: $${Number(edgeData?.amount || 0).toLocaleString()} (${edgeData?.txCount || 1} tx)`}
+            title={`Amount: ₹${Number(edgeData?.amount || 0).toLocaleString()} (${edgeData?.txCount || 1} tx)`}
           >
-            ${Number(edgeData?.amount || 0).toLocaleString(undefined, { maximumFractionDigits: 0 })}
+            ₹{Number(edgeData?.amount || 0).toLocaleString(undefined, { maximumFractionDigits: 0 })}
           </div>
         </div>
       </EdgeLabelRenderer>
