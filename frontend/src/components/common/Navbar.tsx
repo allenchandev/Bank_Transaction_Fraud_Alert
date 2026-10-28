@@ -82,7 +82,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 >
                   {accounts.map((acc) => (
                     <option key={acc.account_ref} value={acc.account_ref} className="bg-slate-900 text-slate-200">
-                      {acc.account_ref} • {acc.customer_name || 'Customer'} (${Number(acc.balance).toLocaleString()})
+                      {acc.account_ref} • {acc.customer_name || 'Customer'} (₹{Number(acc.balance).toLocaleString()})
                     </option>
                   ))}
                 </select>
