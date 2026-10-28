@@ -1488,9 +1488,11 @@ export const FraudDetectionPanel: React.FC<{ roleMode?: RoleMode }> = ({ roleMod
                   {(!aoStar?.traversal_log || aoStar.traversal_log.length === 0) && (
                     <span className="text-slate-400">Awaiting scan execution to trace bottom-up heuristic cost updates.</span>
                   )}
+                </div>
               </div>
             </>
           )}
+        </div>
 
           {/* 3. Disjoint Set Union (DSU / Union-Find) Syndicate Clustering & Cycle Detection */}
           <div className="bg-slate-50/50 border border-slate-200 rounded-xl p-5 mt-6">
