@@ -94,7 +94,7 @@ export const TransferView: React.FC<TransferViewProps> = ({
             </div>
             <div>
               <span className="text-slate-500 block">Amount:</span>
-              <span className="font-bold text-slate-900">${Number(receipt.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+              <span className="font-bold text-slate-900">₹{Number(receipt.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
             </div>
             <div>
               <span className="text-slate-500 block">Recipient:</span>
@@ -102,7 +102,7 @@ export const TransferView: React.FC<TransferViewProps> = ({
             </div>
             <div>
               <span className="text-slate-500 block">Remaining Today:</span>
-              <span className="font-bold text-slate-900">${Number(receipt.daily_allowance_remaining).toLocaleString()}</span>
+              <span className="font-bold text-slate-900">₹{Number(receipt.daily_allowance_remaining).toLocaleString()}</span>
             </div>
           </div>
         </div>
@@ -125,7 +125,7 @@ export const TransferView: React.FC<TransferViewProps> = ({
           <div className="text-right">
             <span className="text-slate-500 block">Available</span>
             <span className="font-bold font-mono text-emerald-600">
-              ${Number(currentAccount.balance).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+              ₹{Number(currentAccount.balance).toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </span>
           </div>
         </div>
@@ -158,13 +158,13 @@ export const TransferView: React.FC<TransferViewProps> = ({
         {/* Amount Input */}
         <div>
           <div className="flex items-center justify-between text-xs font-semibold text-slate-700 mb-1.5">
-            <label>Transfer Amount ($)</label>
+            <label>Transfer Amount (₹)</label>
             <span className="text-slate-500 font-normal">
-              Remaining Today: <strong className="font-mono text-slate-800">${Number(limits.remaining_today).toLocaleString()}</strong>
+              Remaining Today: <strong className="font-mono text-slate-800">₹{Number(limits.remaining_today).toLocaleString()}</strong>
             </span>
           </div>
           <div className="relative">
-            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-bold">₹</span>
             <input
               type="number"
               step="0.01"
@@ -186,24 +186,24 @@ export const TransferView: React.FC<TransferViewProps> = ({
                 onClick={() => setAmountStr(preset.toString())}
                 className="px-2.5 py-1 text-xs rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-mono transition cursor-pointer"
               >
-                ${preset}
+                ₹{preset}
               </button>
             ))}
           </div>
 
           {exceedsBalance && (
             <p className="text-xs text-rose-600 mt-2 flex items-center gap-1">
-              <AlertCircle className="w-3.5 h-3.5" /> Amount exceeds current balance (${currentAccount.balance.toLocaleString()})
+              <AlertCircle className="w-3.5 h-3.5" /> Amount exceeds current balance (₹{currentAccount.balance.toLocaleString()})
             </p>
           )}
           {exceedsPerTxLimit && (
             <p className="text-xs text-rose-600 mt-2 flex items-center gap-1">
-              <AlertCircle className="w-3.5 h-3.5" /> Amount exceeds single transaction limit (${limits.per_tx_limit.toLocaleString()})
+              <AlertCircle className="w-3.5 h-3.5" /> Amount exceeds single transaction limit (₹{limits.per_tx_limit.toLocaleString()})
             </p>
           )}
           {exceedsDailyLimit && (
             <p className="text-xs text-rose-600 mt-2 flex items-center gap-1">
-              <AlertCircle className="w-3.5 h-3.5" /> Amount exceeds remaining daily allowance (${limits.remaining_today.toLocaleString()})
+              <AlertCircle className="w-3.5 h-3.5" /> Amount exceeds remaining daily allowance (₹{limits.remaining_today.toLocaleString()})
             </p>
           )}
         </div>
