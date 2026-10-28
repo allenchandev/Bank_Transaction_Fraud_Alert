@@ -160,7 +160,7 @@ export const TransactionHistoryView: React.FC<TransactionHistoryViewProps> = ({
                           isDeposit || !isOutflow ? 'text-emerald-600' : 'text-slate-900'
                         }`}
                       >
-                        {isDeposit || !isOutflow ? '+' : '-'}${Number(tx.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                        {isDeposit || !isOutflow ? '+' : '-'}₹{Number(tx.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                       </td>
                       <td className="px-4 py-3.5 text-center">
                         <span
