@@ -87,7 +87,7 @@ export const AccountNode = memo(({ data }: { data: AccountNodeData }) => {
         <div>
           <div className="text-[9px] uppercase font-mono text-slate-400">Balance</div>
           <div className="font-bold text-slate-900 text-[11px] font-mono">
-            ${Number(data.balance).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            ₹{Number(data.balance).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </div>
         </div>
 
