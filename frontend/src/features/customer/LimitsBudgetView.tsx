@@ -76,7 +76,7 @@ export const LimitsBudgetView: React.FC<LimitsBudgetViewProps> = ({
       <form onSubmit={handleSave} className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-5">
         <div>
           <label className="block text-xs font-semibold text-slate-700 mb-1">
-            Daily Transfer Limit ($)
+            Daily Transfer Limit (₹)
           </label>
           <p className="text-[11px] text-slate-500 mb-2">
             Maximum outbound transfer amount allowed per 24-hour cycle.
@@ -94,7 +94,7 @@ export const LimitsBudgetView: React.FC<LimitsBudgetViewProps> = ({
 
         <div>
           <label className="block text-xs font-semibold text-slate-700 mb-1">
-            Single Transaction Ceiling ($)
+            Single Transaction Ceiling (₹)
           </label>
           <p className="text-[11px] text-slate-500 mb-2">
             Cap for any individual wire or inter-account transfer.
@@ -112,7 +112,7 @@ export const LimitsBudgetView: React.FC<LimitsBudgetViewProps> = ({
 
         <div>
           <label className="block text-xs font-semibold text-slate-700 mb-1">
-            Monthly Spending Budget ($)
+            Monthly Spending Budget (₹)
           </label>
           <p className="text-[11px] text-slate-500 mb-2">
             Target spending ceiling across all debit activities.
