@@ -22,6 +22,7 @@ import {
   BookOpen,
   HelpCircle,
   Lightbulb,
+  Network,
   Sparkles,
   Calculator,
   Eye,
@@ -52,7 +53,7 @@ export const FraudDetectionPanel: React.FC<{ roleMode?: RoleMode }> = ({ roleMod
   const [activeSubTab, setActiveSubTab] = useState<'scanner' | 'history' | 'studies'>('scanner');
 
   // Study Hub Active Module
-  const [activeStudyModule, setActiveStudyModule] = useState<'bayes' | 'ao_star' | 'forensics' | 'domain' | 'viva_qa'>('bayes');
+  const [activeStudyModule, setActiveStudyModule] = useState<'bayes' | 'ao_star' | 'dsu' | 'forensics' | 'domain' | 'viva_qa'>('bayes');
 
   // Automatically switch to studies view when user changes dropdown to Subject
   useEffect(() => {
@@ -1741,9 +1742,10 @@ export const FraudDetectionPanel: React.FC<{ roleMode?: RoleMode }> = ({ roleMod
             {[
               { id: 'bayes', label: '1. Bayes Theorem Calculus', icon: Calculator, desc: 'Prior Odds & Likelihood Ratio' },
               { id: 'ao_star', label: '2. AO* Graph Decomposition', icon: Workflow, desc: 'AND-OR Proof Tree Search' },
-              { id: 'forensics', label: '3. CV & Image Splicing', icon: Eye, desc: 'Laplacian Variance & OCR Bounds' },
-              { id: 'domain', label: '4. Domain Classification', icon: ShieldCheck, desc: 'Receipt vs Non-Transaction' },
-              { id: 'viva_qa', label: '5. Examiner Viva Voce Q&A', icon: HelpCircle, desc: 'Top 10 Viva Questions & Answers' },
+              { id: 'dsu', label: '3. DSU / Union-Find Clustering', icon: Network, desc: 'Mule Syndicates & Cycle Detection' },
+              { id: 'forensics', label: '4. CV & Image Splicing', icon: Eye, desc: 'Laplacian Variance & OCR Bounds' },
+              { id: 'domain', label: '5. Domain Classification', icon: ShieldCheck, desc: 'Receipt vs Non-Transaction' },
+              { id: 'viva_qa', label: '6. Examiner Viva Voce Q&A', icon: HelpCircle, desc: 'Top 10 Viva Questions & Answers' },
             ].map((mod) => {
               const Icon = mod.icon;
               const isActive = activeStudyModule === mod.id;
