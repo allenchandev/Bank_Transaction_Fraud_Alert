@@ -230,7 +230,11 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({
         {/* Grounded Badge */}
         <span className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200/80 text-xs text-slate-700 font-semibold">
           <span className="w-1.5 h-1.5 rounded-full bg-[#0d5c4d]" />
-          <span>{message.confidenceScore ? `${message.confidenceScore}% Grounded` : 'Verified Grounded'}</span>
+          <span>
+            {message.confidenceScore !== undefined
+              ? `${Math.round(message.confidenceScore <= 1 ? message.confidenceScore * 100 : message.confidenceScore)}% Grounded`
+              : 'Verified Grounded'}
+          </span>
         </span>
 
         {/* Citation Chips */}
