@@ -73,7 +73,7 @@ export const CustomerDashboardView: React.FC<CustomerDashboardViewProps> = ({
             <button
               onClick={() => onNavigate('transfer')}
               disabled={isFrozen}
-              className="flex-1 py-2.5 px-3 rounded-xl bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Send className="w-3.5 h-3.5" /> Transfer Funds
             </button>
@@ -91,7 +91,7 @@ export const CustomerDashboardView: React.FC<CustomerDashboardViewProps> = ({
           <div>
             <div className="flex items-center justify-between text-xs text-slate-500 mb-2 font-medium">
               <span>Daily Transfer Allowance</span>
-              <span className={`text-xs font-semibold ${isNearLimit ? 'text-orange-600' : 'text-slate-700'}`}>
+              <span className={`text-xs font-semibold ${isNearLimit ? 'text-rose-600' : 'text-slate-700'}`}>
                 {dailyUsagePct}% Used
               </span>
             </div>
@@ -105,7 +105,7 @@ export const CustomerDashboardView: React.FC<CustomerDashboardViewProps> = ({
             <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden my-3">
               <div
                 className={`h-full rounded-full transition-all duration-300 ${
-                  isNearLimit ? 'bg-orange-600' : 'bg-slate-800'
+                  isNearLimit ? 'bg-rose-600' : 'bg-slate-900'
                 }`}
                 style={{ width: `${dailyUsagePct}%` }}
               />
@@ -162,7 +162,7 @@ export const CustomerDashboardView: React.FC<CustomerDashboardViewProps> = ({
           </div>
           <button
             onClick={() => onNavigate('transactions')}
-            className="text-xs font-bold text-orange-600 hover:text-orange-700 flex items-center gap-1 cursor-pointer"
+            className="text-xs font-bold text-slate-700 hover:text-slate-900 flex items-center gap-1 cursor-pointer"
           >
             Full Statement <ArrowUpRight className="w-3.5 h-3.5" />
           </button>
