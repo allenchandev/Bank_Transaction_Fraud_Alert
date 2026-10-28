@@ -9,7 +9,7 @@ import {
   ArrowUpRight,
   Network,
   Activity,
-  DollarSign,
+  IndianRupee,
   Search,
 } from 'lucide-react';
 import { NetworkOverview } from '@/types';
@@ -85,10 +85,10 @@ export const AdminOverviewView: React.FC<AdminOverviewViewProps> = ({ overview, 
         <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between text-xs text-slate-500 font-semibold mb-1">
             <span>TOTAL VOLUME</span>
-            <DollarSign className="w-4 h-4 text-orange-600" />
+            <IndianRupee className="w-4 h-4 text-orange-600" />
           </div>
           <div className="text-3xl font-extrabold text-slate-900 font-mono">
-            ${Number(summary.total_volume).toLocaleString(undefined, { maximumFractionDigits: 0 })}
+            ₹{Number(summary.total_volume).toLocaleString(undefined, { maximumFractionDigits: 0 })}
           </div>
           <div className="text-[11px] text-slate-400 mt-1">Processed transactions</div>
         </div>
@@ -170,7 +170,7 @@ export const AdminOverviewView: React.FC<AdminOverviewViewProps> = ({ overview, 
                     <span className="text-xs text-slate-700 font-medium">{acc.customer_name}</span>
                   </div>
                   <div className="text-[11px] text-slate-500 mt-0.5">
-                    Balance: <strong className="text-slate-700 font-mono">${Number(acc.balance).toLocaleString()}</strong>
+                    Balance: <strong className="text-slate-700 font-mono">₹{Number(acc.balance).toLocaleString()}</strong>
                   </div>
                 </div>
 
