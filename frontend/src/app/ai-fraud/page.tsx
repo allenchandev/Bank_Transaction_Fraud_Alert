@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Header } from '@/components/AIFraudDetection/Header';
 import { FraudDetectionPanel } from '@/components/AIFraudDetection/FraudDetectionPanel';
+import { DocumentIntelligenceView } from '@/components/DocumentIntelligence/DocumentIntelligenceView';
 import type { RoleMode } from '@/types';
 import { Home, Building2, ShieldAlert } from 'lucide-react';
 
@@ -11,6 +12,8 @@ export default function StandaloneAiFraudPage() {
   const router = useRouter();
   const [roleMode, setRoleMode] = useState<RoleMode>('Auditor');
   const [activeTab, setActiveTab] = useState<'fraud' | 'documents'>('fraud');
+  const [isConflictModalOpen, setIsConflictModalOpen] = useState(false);
+  const [activeConflicts, setActiveConflicts] = useState<any[]>([]);
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
@@ -52,12 +55,24 @@ export default function StandaloneAiFraudPage() {
         onRoleModeChange={(r) => setRoleMode(r)}
         activeTab={activeTab}
         onTabChange={(t) => setActiveTab(t)}
+        onOpenConflicts={() => setIsConflictModalOpen(true)}
+        conflictCount={activeConflicts.length}
       />
 
       {/* Main Inspection View */}
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <FraudDetectionPanel roleMode={roleMode} />
-      </main>
+      {activeTab === 'fraud' ? (
+        <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <FraudDetectionPanel roleMode={roleMode} />
+        </main>
+      ) : (
+        <DocumentIntelligenceView
+          roleMode={roleMode}
+          isConflictModalOpen={isConflictModalOpen}
+          setIsConflictModalOpen={setIsConflictModalOpen}
+          activeConflicts={activeConflicts}
+          setActiveConflicts={setActiveConflicts}
+        />
+      )}
     </div>
   );
 }
