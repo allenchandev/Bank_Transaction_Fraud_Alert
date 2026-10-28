@@ -170,7 +170,7 @@ export const CustomerDirectoryView: React.FC<CustomerDirectoryViewProps> = ({
                       {acc.account_type}
                     </td>
                     <td className="px-4 py-3.5 text-right font-mono font-bold text-slate-900">
-                      ${Number(acc.balance).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      ₹{Number(acc.balance).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td className="px-4 py-3.5 text-center">
                       <span
