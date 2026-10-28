@@ -18,6 +18,7 @@ from pydantic import BaseModel, Field
 from app.fraud_ai.bayesian_detector import bayesian_engine
 from app.fraud_ai.ao_star_search import ao_star_engine
 from app.fraud_ai.receipt_analyzer import receipt_fraud_agent
+from app.fraud_ai.dsu_engine import dsu_fraud_evaluator
 
 router = APIRouter(prefix="/api/fraud-ai", tags=["AI Fraud Intelligence"])
 
@@ -159,7 +160,15 @@ def analyze_transaction_data(req: TransactionAnalysisRequest):
     graph = ao_star_engine.build_fraud_graph(evidence_map)
     ao_res = ao_star_engine.run_ao_star(graph, root_id="GOAL_FRAUD")
 
-    is_fraud = bayes_res.posterior_probability >= 0.50
+    # Run Disjoint Set Union (DSU / Union-Find) Syndicate & Cycle Detection
+    dsu_res = dsu_fraud_evaluator.analyze_syndicate_clustering(
+        current_sender=req.transaction_id or "ACC-SRC",
+        current_receiver=req.beneficiary_account or "counterparty@bank",
+        amount=req.amount,
+        utr=req.utr
+    )
+
+    is_fraud = bayes_res.posterior_probability >= 0.50 or dsu_res.get("candidate_causes_cycle", False)
     agent_advisory = receipt_fraud_agent.generate_agent_advisory(
         image_path=None,
         extracted={"amount": req.amount, "utr": req.utr, "payee": req.beneficiary_account},
@@ -210,7 +219,8 @@ def analyze_transaction_data(req: TransactionAnalysisRequest):
             "proof_tree_edges": ao_res.proof_tree_edges,
             "full_graph": ao_res.graph_dict,
             "traversal_log": ao_res.traversal_log
-        }
+        },
+        "dsu_clustering": dsu_res
     }
 
 
