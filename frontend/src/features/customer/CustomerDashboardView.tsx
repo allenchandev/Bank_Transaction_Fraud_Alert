@@ -62,7 +62,7 @@ export const CustomerDashboardView: React.FC<CustomerDashboardViewProps> = ({
               </span>
             </div>
             <div className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-mono my-2">
-              ${Number(account.balance).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              ₹{Number(account.balance).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </div>
             <div className="text-xs text-slate-500 font-mono">
               Account: <span className="text-slate-800 font-bold">{account.account_ref}</span>
@@ -97,7 +97,7 @@ export const CustomerDashboardView: React.FC<CustomerDashboardViewProps> = ({
             </div>
 
             <div className="text-2xl font-bold text-slate-900 font-mono my-2">
-              ${Number(limits.remaining_today).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+              ₹{Number(limits.remaining_today).toLocaleString(undefined, { minimumFractionDigits: 2 })}
               <span className="text-xs font-normal text-slate-500 ml-1.5">left today</span>
             </div>
 
@@ -112,14 +112,14 @@ export const CustomerDashboardView: React.FC<CustomerDashboardViewProps> = ({
             </div>
 
             <div className="flex justify-between text-xs text-slate-500">
-              <span>Used: ${Number(limits.transferred_today).toLocaleString()}</span>
-              <span>Limit: ${Number(limits.daily_limit).toLocaleString()}</span>
+              <span>Used: ₹{Number(limits.transferred_today).toLocaleString()}</span>
+              <span>Limit: ₹{Number(limits.daily_limit).toLocaleString()}</span>
             </div>
           </div>
 
           <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
             <span className="text-slate-500">Per-Tx Ceiling:</span>
-            <span className="font-mono font-bold text-slate-800">${Number(limits.per_tx_limit).toLocaleString()}</span>
+            <span className="font-mono font-bold text-slate-800">₹{Number(limits.per_tx_limit).toLocaleString()}</span>
           </div>
         </div>
 
@@ -132,7 +132,7 @@ export const CustomerDashboardView: React.FC<CustomerDashboardViewProps> = ({
             </div>
 
             <div className="text-2xl font-bold text-slate-900 font-mono my-2">
-              ${Number(limits.monthly_budget).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+              ₹{Number(limits.monthly_budget).toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </div>
 
             <p className="text-xs text-slate-500 leading-relaxed mt-2">
