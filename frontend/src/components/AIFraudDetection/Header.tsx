@@ -47,7 +47,7 @@ export const Header: React.FC<HeaderProps> = ({
               AI-Based Fraud Detection in Transactions
             </span>
             <span className="text-[11px] font-mono font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-md border border-slate-200 whitespace-nowrap">
-              Bayes · AO* Graph
+              Bayes · AO* Graph · DSU Disjoint-Set
             </span>
           </div>
           <span className="text-xs text-slate-500 font-serif leading-tight mt-0.5 whitespace-nowrap">
