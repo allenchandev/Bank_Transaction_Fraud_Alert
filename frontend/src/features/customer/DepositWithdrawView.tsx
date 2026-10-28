@@ -38,13 +38,13 @@ export const DepositWithdrawView: React.FC<DepositWithdrawViewProps> = ({
         const res = await api.deposit(currentAccount.account_ref, amount, description);
         setStatusMsg({
           type: 'success',
-          text: `Deposit successful! $${amount.toLocaleString()} credited. New balance: $${Number(res.new_balance).toLocaleString()}`,
+          text: `Deposit successful! ₹${amount.toLocaleString()} credited. New balance: ₹${Number(res.new_balance).toLocaleString()}`,
         });
       } else {
         const res = await api.withdraw(currentAccount.account_ref, amount, description);
         setStatusMsg({
           type: 'success',
-          text: `Withdrawal successful! $${amount.toLocaleString()} debited. New balance: $${Number(res.new_balance).toLocaleString()}`,
+          text: `Withdrawal successful! ₹${amount.toLocaleString()} debited. New balance: ₹${Number(res.new_balance).toLocaleString()}`,
         });
       }
       setAmountStr('');
@@ -92,7 +92,7 @@ export const DepositWithdrawView: React.FC<DepositWithdrawViewProps> = ({
           <div className="text-right">
             <span className="text-slate-500 block">Current Balance</span>
             <span className="font-bold font-mono text-emerald-600 text-sm">
-              ${Number(currentAccount.balance).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+              ₹{Number(currentAccount.balance).toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </span>
           </div>
         </div>
@@ -136,10 +136,10 @@ export const DepositWithdrawView: React.FC<DepositWithdrawViewProps> = ({
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-              {activeTab === 'deposit' ? 'Deposit Amount ($)' : 'Withdrawal Amount ($)'}
+              {activeTab === 'deposit' ? 'Deposit Amount (₹)' : 'Withdrawal Amount (₹)'}
             </label>
             <div className="relative">
-              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
+              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-bold">₹</span>
               <input
                 type="number"
                 step="0.01"
