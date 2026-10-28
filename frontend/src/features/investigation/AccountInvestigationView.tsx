@@ -145,7 +145,7 @@ export const AccountInvestigationView: React.FC<AccountInvestigationViewProps> =
               <div>
                 <span className="text-[10px] uppercase font-semibold text-slate-400 block">Balance</span>
                 <span className="text-2xl font-extrabold text-slate-900 font-mono">
-                  ${Number(acc.balance).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                  ₹{Number(acc.balance).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                 </span>
               </div>
 
@@ -229,13 +229,13 @@ export const AccountInvestigationView: React.FC<AccountInvestigationViewProps> =
                 <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
                   <span className="text-slate-500 block text-[11px]">Total Inflow</span>
                   <span className="text-emerald-600 font-bold font-mono text-base">
-                    ${Number(metrics?.incoming_volume || 0).toLocaleString()}
+                    ₹{Number(metrics?.incoming_volume || 0).toLocaleString()}
                   </span>
                 </div>
                 <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
                   <span className="text-slate-500 block text-[11px]">Total Outflow</span>
                   <span className="text-orange-600 font-bold font-mono text-base">
-                    ${Number(metrics?.outgoing_volume || 0).toLocaleString()}
+                    ₹{Number(metrics?.outgoing_volume || 0).toLocaleString()}
                   </span>
                 </div>
               </div>
