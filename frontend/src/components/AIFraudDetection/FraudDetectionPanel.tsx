@@ -331,6 +331,7 @@ export const FraudDetectionPanel: React.FC<{ roleMode?: RoleMode }> = ({ roleMod
   const verdict = analysisResult?.verdict;
   const bayes = analysisResult?.bayesian_analysis;
   const aoStar = analysisResult?.ao_star_search;
+  const dsu = analysisResult?.dsu_clustering;
   const advisory = analysisResult?.gemini_agent_advisory;
 
   // Helper function to check if an AO* node is solved in the active proof tree
@@ -927,11 +928,11 @@ export const FraudDetectionPanel: React.FC<{ roleMode?: RoleMode }> = ({ roleMod
                     <h3 className="text-xs font-bold text-slate-900 flex items-center gap-2">
                       <span>Mathematical Inference & Proof Search</span>
                       <span className="text-[10px] font-mono px-1.5 py-0.2 bg-slate-100 text-slate-600 rounded border border-slate-200">
-                        Bayes' Theorem · AO* Graph
+                        Bayes' Theorem · AO* Graph · DSU Union-Find
                       </span>
                     </h3>
                     <p className="text-[11px] text-slate-500 mt-0.5">
-                      {showAdvancedCalculus ? 'Click to hide probabilistic calculus and graph tree' : 'Click to view step-by-step Bayes posterior updating & AO* proof tree'}
+                      {showAdvancedCalculus ? 'Click to hide probabilistic calculus, proof tree, and DSU clustering' : 'Click to view step-by-step Bayes updating, AO* tree & DSU syndicate clustering'}
                     </p>
                   </div>
                 </div>
@@ -1487,10 +1488,123 @@ export const FraudDetectionPanel: React.FC<{ roleMode?: RoleMode }> = ({ roleMod
                   {(!aoStar?.traversal_log || aoStar.traversal_log.length === 0) && (
                     <span className="text-slate-400">Awaiting scan execution to trace bottom-up heuristic cost updates.</span>
                   )}
-                </div>
               </div>
             </>
           )}
+
+          {/* 3. Disjoint Set Union (DSU / Union-Find) Syndicate Clustering & Cycle Detection */}
+          <div className="bg-slate-50/50 border border-slate-200 rounded-xl p-5 mt-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+              <div>
+                <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                  <Workflow className="w-4 h-4 text-purple-700" />
+                  <span>Disjoint Set Union (DSU / Union-Find) — Money-Mule Clustering</span>
+                  <span className="text-[10px] font-mono px-1.5 py-0.2 bg-purple-100 text-purple-800 rounded font-bold border border-purple-200">
+                    O(α(N)) Inverse Ackermann
+                  </span>
+                </h4>
+                <span className="text-[11px] text-slate-500 font-mono">
+                  Path compression + Union by rank · Instant cycle detection & syndicate partition
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded border ${
+                  dsu?.candidate_causes_cycle
+                    ? 'bg-rose-100 text-rose-800 border-rose-300'
+                    : 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                }`}>
+                  {dsu?.candidate_causes_cycle ? 'CLOSED CYCLE DETECTED' : 'OPEN TOPOLOGY'}
+                </span>
+              </div>
+            </div>
+
+            {/* DSU Summary Card */}
+            <div className="p-3.5 rounded-lg bg-white border border-slate-200 shadow-2xs mb-4">
+              <p className="text-xs text-slate-700 leading-relaxed font-sans">
+                {dsu?.verdict_summary || 'Evaluates account connectivity sets via Disjoint Set Union (DSU). Identifies if the recipient and sender already belong to a connected money-mule syndicate.'}
+              </p>
+              {dsu?.target_syndicate && (
+                <div className="mt-3 flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 text-xs">
+                  <span className="font-bold text-slate-700">Identified Syndicate:</span>
+                  <span className="font-mono bg-slate-100 px-2 py-0.5 rounded text-purple-800 font-bold border border-slate-200">
+                    {dsu.target_syndicate.syndicate_id}
+                  </span>
+                  <span className="text-slate-500 font-mono">
+                    (Root: {dsu.target_syndicate.root_account} · {dsu.target_syndicate.cluster_size} linked accounts)
+                  </span>
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${
+                    dsu.target_syndicate.is_suspicious_cluster
+                      ? 'bg-amber-100 text-amber-800'
+                      : 'bg-slate-100 text-slate-600'
+                  }`}>
+                    {dsu.target_syndicate.risk_badge}
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {/* Syndicates Grid */}
+            <div className="mb-4">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-2 font-mono">
+                Identified Disjoint Syndicate Partitions (Equivalence Classes):
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                {(dsu?.syndicates || [
+                  { syndicate_id: 'SYN-ACC-2001', root_account: 'ACC-2001', cluster_size: 3, members: ['ACC-2001', 'ACC-2002', 'ACC-2003'], risk_badge: 'High Risk Syndicate', is_suspicious_cluster: true },
+                  { syndicate_id: 'SYN-ACC-2004', root_account: 'ACC-2004', cluster_size: 3, members: ['ACC-2004', 'ACC-2005', 'ACC-2006'], risk_badge: 'High Risk Syndicate', is_suspicious_cluster: true },
+                  { syndicate_id: 'SYN-ACC-2007', root_account: 'ACC-2007', cluster_size: 2, members: ['ACC-2007', 'ACC-2008'], risk_badge: 'Normal Peer Group', is_suspicious_cluster: false },
+                ]).map((syn: any) => (
+                  <div
+                    key={syn.syndicate_id}
+                    className={`p-3 rounded-lg border text-xs ${
+                      syn.is_suspicious_cluster
+                        ? 'bg-rose-50/40 border-rose-200'
+                        : 'bg-white border-slate-200'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="font-mono font-bold text-slate-900">{syn.syndicate_id}</span>
+                      <span className="text-[10px] font-mono text-slate-500">
+                        {syn.cluster_size} nodes
+                      </span>
+                    </div>
+                    <div className="text-[11px] font-mono text-slate-600 truncate">
+                      Members: {syn.members?.join(' ↔ ')}
+                    </div>
+                    <span className={`inline-block text-[10px] font-bold px-1.5 py-0.2 rounded mt-2 ${
+                      syn.is_suspicious_cluster ? 'bg-rose-100 text-rose-800' : 'bg-slate-100 text-slate-600'
+                    }`}>
+                      {syn.risk_badge}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* DSU Step Execution Log */}
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-2 font-mono">
+                DSU Union / Cycle Operation Log:
+              </span>
+              <div className="bg-slate-50/80 rounded-lg p-3 max-h-28 overflow-y-auto text-xs text-slate-700 space-y-1 border border-slate-200 font-mono">
+                {(dsu?.dsu_steps || [
+                  { action: 'UNION_SUCCESS', details: "United ACC-2001 and ACC-2002 via find() and union-by-rank." },
+                  { action: 'CYCLE_DETECTED', details: "Disjoint Set Union cycle found: ACC-2003 and ACC-2001 share root 'ACC-2001'." }
+                ]).map((step: any, idx: number) => (
+                  <div key={idx} className="leading-relaxed flex items-start gap-1.5">
+                    <span className={`text-[10px] font-bold px-1 rounded shrink-0 ${
+                      step.action === 'CYCLE_DETECTED'
+                        ? 'bg-rose-100 text-rose-800'
+                        : 'bg-emerald-100 text-emerald-800'
+                    }`}>
+                      {step.action}
+                    </span>
+                    <span>{step.details}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     )}
