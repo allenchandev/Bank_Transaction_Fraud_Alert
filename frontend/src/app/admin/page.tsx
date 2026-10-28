@@ -18,6 +18,7 @@ import {
   RefreshCw,
   CheckCircle2,
   AlertTriangle,
+  Sparkles,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { api } from '@/lib/api';
