@@ -16,6 +16,7 @@ import logging
 
 from app.fraud_ai.bayesian_detector import bayesian_engine, BayesianInferenceResult
 from app.fraud_ai.ao_star_search import ao_star_engine, AOStarResult
+from app.fraud_ai.dsu_engine import dsu_fraud_evaluator
 
 logger = logging.getLogger(__name__)
 
@@ -570,8 +571,16 @@ class ReceiptFraudAnalyzer:
         ao_graph = ao_star_engine.build_fraud_graph(evidence_map)
         ao_result = ao_star_engine.run_ao_star(ao_graph, root_id="GOAL_FRAUD")
 
-        # 5. Consolidate Final Verdict
-        is_fraud = bayes_result.posterior_probability >= 0.50 or ao_result.is_fraud_proved
+        # 5. DSU (Disjoint Set Union / Union-Find) Syndicate & Cycle Detection
+        dsu_result = dsu_fraud_evaluator.analyze_syndicate_clustering(
+            current_sender="CUSTOMER_PAYER",
+            current_receiver=extracted.get("payee") or "target_vendor@oksbi",
+            amount=extracted.get("amount") or 0.0,
+            utr=extracted.get("utr")
+        )
+
+        # 6. Consolidate Final Verdict
+        is_fraud = bayes_result.posterior_probability >= 0.50 or ao_result.is_fraud_proved or dsu_result.get("candidate_causes_cycle", False)
         fraud_confidence = bayes_result.risk_score_100
 
         verdict_title = (
@@ -641,7 +650,8 @@ class ReceiptFraudAnalyzer:
                 "proof_tree_edges": ao_result.proof_tree_edges,
                 "full_graph": ao_result.graph_dict,
                 "traversal_log": ao_result.traversal_log
-            }
+            },
+            "dsu_clustering": dsu_result
         }
 
     def generate_agent_advisory(
