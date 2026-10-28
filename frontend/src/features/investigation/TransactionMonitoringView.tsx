@@ -142,7 +142,7 @@ export const TransactionMonitoringView: React.FC<TransactionMonitoringViewProps>
                       {tx.description}
                     </td>
                     <td className="px-4 py-3.5 text-right font-mono font-bold text-slate-900">
-                      ${Number(tx.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      ₹{Number(tx.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td className="px-4 py-3.5 text-center">
                       <span
