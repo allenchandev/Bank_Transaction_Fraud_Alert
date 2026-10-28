@@ -142,7 +142,7 @@ export default function CustomerPortalPage() {
                 >
                   {accounts.map((acc) => (
                     <option key={acc.account_ref} value={acc.account_ref} className="bg-white text-slate-900">
-                      {acc.account_ref} • {acc.customer_name} (${Number(acc.balance).toLocaleString()})
+                      {acc.account_ref} • {acc.customer_name} (₹{Number(acc.balance).toLocaleString()})
                     </option>
                   ))}
                 </select>
