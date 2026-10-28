@@ -195,7 +195,7 @@ export const DepositWithdrawView: React.FC<DepositWithdrawViewProps> = ({
             className={`w-full py-3 rounded-xl font-bold text-sm shadow-sm transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${
               activeTab === 'deposit'
                 ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
-                : 'bg-orange-600 hover:bg-orange-700 text-white'
+                : 'bg-slate-900 hover:bg-slate-800 text-white'
             }`}
           >
             {isSubmitting ? (
