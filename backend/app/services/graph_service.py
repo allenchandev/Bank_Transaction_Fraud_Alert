@@ -10,6 +10,7 @@ from app.dsa.dfs import DFSCycleDetector
 from app.dsa.bfs import BFSFundTracer
 from app.dsa.metrics import GraphMetricsCalculator
 from app.dsa.risk_engine import RiskScoringEngine
+from app.dsa.hierarchy import BankHierarchyTree, NodeType
 from app.repositories.ledger_repository import ledger_repo
 
 
@@ -240,5 +241,121 @@ class GraphIntelligenceService:
             "edges": edges
         }
 
+    def build_bank_hierarchy(self) -> BankHierarchyTree:
+        """
+        Constructs the Bank Hierarchy Tree (Head Branch -> Divisions -> Branches -> Users -> Accounts)
+        dynamically mapped from current customers and accounts in the database.
+        """
+        tree = BankHierarchyTree(
+            head_branch_id="HEAD-MAIN",
+            head_branch_name="Aegis Federal Central Head Branch",
+            city="Metropolis Financial Center"
+        )
+
+        # 1. Primary Banking Divisions
+        divisions = [
+            ("DIV-RETAIL", "Retail & Consumer Banking Division", "Consumer deposits, savings & student financing"),
+            ("DIV-COMMERCIAL", "Commercial & Corporate Banking Division", "Business lines, corporate liquidity & merchants"),
+            ("DIV-WEALTH", "Private Wealth & High Net-Worth Division", "High-balance portfolio management & private trusts")
+        ]
+        for div_id, div_name, desc in divisions:
+            tree.add_node(
+                parent_id="HEAD-MAIN",
+                node_id=div_id,
+                name=div_name,
+                node_type=NodeType.DIVISION,
+                metadata={"description": desc}
+            )
+
+        # 2. Regional / Local Operating Branches under Divisions
+        branches = [
+            # Under Retail Division
+            ("BR-RET-01", "DIV-RETAIL", "Downtown Metro Retail Branch", "District 1 - Core City"),
+            ("BR-RET-02", "DIV-RETAIL", "North Campus University Branch", "University Student Hub"),
+            # Under Commercial Division
+            ("BR-COM-01", "DIV-COMMERCIAL", "Corporate Exchange Center", "Financial District Tower 4"),
+            ("BR-COM-02", "DIV-COMMERCIAL", "Logistics & Trade Port Branch", "Industrial Wharf District"),
+            # Under Wealth Division
+            ("BR-WTH-01", "DIV-WEALTH", "Aegis Private Client Pavilion", "Uptown Financial Suites")
+        ]
+        for br_id, parent_div, br_name, location in branches:
+            tree.add_node(
+                parent_id=parent_div,
+                node_id=br_id,
+                name=br_name,
+                node_type=NodeType.BRANCH,
+                metadata={"location": location}
+            )
+
+        # 3. Fetch Customers (Users) and their Accounts from DB
+        customers = self.repo.get_customers()
+        accounts = self.repo.get_accounts()
+
+        # Group accounts by customer_id
+        accounts_by_cust: Dict[int, List[Dict[str, Any]]] = {}
+        for acc in accounts:
+            cid = acc["customer_id"]
+            if cid not in accounts_by_cust:
+                accounts_by_cust[cid] = []
+            accounts_by_cust[cid].append(acc)
+
+        for cust in customers:
+            cid = cust["id"]
+            cust_ref = cust["customer_ref"]
+            full_name = cust["full_name"]
+            cust_accounts = accounts_by_cust.get(cid, [])
+
+            # Route user to branch based on account type and balance profile
+            has_student = any(a.get("account_type") == "student" for a in cust_accounts)
+            total_bal = sum(float(a.get("balance", 0)) for a in cust_accounts)
+
+            if total_bal >= 50000.0:
+                target_branch_id = "BR-WTH-01"  # Wealth Pavilion
+            elif has_student:
+                target_branch_id = "BR-RET-02"  # University Branch
+            elif any(a.get("account_type") == "current" and float(a.get("balance", 0)) > 20000.0 for a in cust_accounts):
+                target_branch_id = "BR-COM-01"  # Corporate Exchange
+            elif cust.get("occupation") in ["Import/Export Trader", "Logistics Coordinator"]:
+                target_branch_id = "BR-COM-02"  # Logistics & Trade Branch
+            else:
+                target_branch_id = "BR-RET-01"  # Downtown Metro
+
+            # Add User / Customer Node
+            user_node_id = f"USER-{cust_ref}"
+            tree.add_node(
+                parent_id=target_branch_id,
+                node_id=user_node_id,
+                name=full_name,
+                node_type=NodeType.USER,
+                metadata={
+                    "customer_id": cid,
+                    "customer_ref": cust_ref,
+                    "email": cust["email"],
+                    "occupation": cust.get("occupation"),
+                    "age_band": cust.get("age_band")
+                }
+            )
+
+            # Add Account Nodes under the User Node
+            for acc in cust_accounts:
+                acc_ref = acc["account_ref"]
+                acc_node_id = f"ACC-{acc_ref}"
+                tree.add_node(
+                    parent_id=user_node_id,
+                    node_id=acc_node_id,
+                    name=f"Account {acc_ref} ({acc.get('account_type', 'savings')})",
+                    node_type=NodeType.ACCOUNT,
+                    metadata={
+                        "account_ref": acc_ref,
+                        "account_type": acc.get("account_type"),
+                        "balance": float(acc.get("balance", 0.0)),
+                        "status": acc.get("status", "active"),
+                        "daily_limit": float(acc.get("daily_transfer_limit", 5000.0))
+                    }
+                )
+
+        return tree
+
 
 graph_service = GraphIntelligenceService()
+
