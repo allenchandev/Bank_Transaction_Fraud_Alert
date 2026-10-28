@@ -26,7 +26,6 @@ import { DepositWithdrawView } from '@/features/customer/DepositWithdrawView';
 import { TransactionHistoryView } from '@/features/customer/TransactionHistoryView';
 import { LimitsBudgetView } from '@/features/customer/LimitsBudgetView';
 import { NotificationsView } from '@/features/customer/NotificationsView';
-import { AiFraudIntelligenceView } from '@/features/investigation/AiFraudIntelligenceView';
 import { FraudDetectionPanel } from '@/components/AIFraudDetection/FraudDetectionPanel';
 
 export default function CustomerPortalPage() {
