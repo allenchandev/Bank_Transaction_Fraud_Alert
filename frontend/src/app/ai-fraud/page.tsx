@@ -45,7 +45,7 @@ export default function StandaloneAiFraudPage() {
           </button>
         </div>
         <div className="text-[11px] font-mono text-slate-400">
-          Module: AI Forensic Verification · Bayes · AO* Graph
+          Module: AI Forensic Verification · Bayes · AO* Graph · DSU Union-Find
         </div>
       </div>
 
