@@ -207,7 +207,7 @@ export const CustomerDashboardView: React.FC<CustomerDashboardViewProps> = ({
                         isDeposit || !isOutflow ? 'text-emerald-600' : 'text-slate-900'
                       }`}
                     >
-                      {isDeposit || !isOutflow ? '+' : '-'}${Number(tx.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      {isDeposit || !isOutflow ? '+' : '-'}₹{Number(tx.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </div>
                     <span
                       className={`text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase ${
