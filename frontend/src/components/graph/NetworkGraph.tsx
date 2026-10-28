@@ -412,7 +412,7 @@ export const NetworkGraph: React.FC<NetworkGraphProps> = ({
                   <div>
                     <span className="text-slate-500 block">Balance:</span>
                     <span className="font-bold text-slate-900 font-mono">
-                      ${Number(accountDetails.account.balance).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      ₹{Number(accountDetails.account.balance).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </span>
                   </div>
                   <div>
