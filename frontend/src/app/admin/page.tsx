@@ -18,7 +18,6 @@ import {
   RefreshCw,
   CheckCircle2,
   AlertTriangle,
-  Sparkles,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { api } from '@/lib/api';
@@ -33,8 +32,6 @@ import { CustomerDirectoryView } from '@/features/investigation/CustomerDirector
 import { InvestigationCasesView } from '@/features/investigation/InvestigationCasesView';
 import { AuditLogsView } from '@/features/investigation/AuditLogsView';
 import { DetectionRulesView } from '@/features/investigation/DetectionRulesView';
-import { AiFraudIntelligenceView } from '@/features/investigation/AiFraudIntelligenceView';
-import { FraudDetectionPanel } from '@/components/AIFraudDetection/FraudDetectionPanel';
 
 export default function AdminConsolePage() {
   const router = useRouter();
@@ -107,7 +104,6 @@ export default function AdminConsolePage() {
 
   const navItems = [
     { id: 'overview', label: 'Fraud Intelligence', icon: LayoutDashboard },
-    { id: 'ai_fraud', label: 'AI Forensics & AO* Search', icon: Sparkles },
     { id: 'network', label: 'Network Explorer', icon: Network },
     { id: 'monitoring', label: 'Transaction Monitor', icon: Radio },
     { id: 'investigate', label: 'Account Investigation', icon: Search },
@@ -273,11 +269,7 @@ export default function AdminConsolePage() {
                 />
               )}
 
-              {activeTab === 'ai_fraud' && (
-                <div className="space-y-4">
-                  <FraudDetectionPanel roleMode="Auditor" />
-                </div>
-              )}
+
 
               {activeTab === 'network' && (
                 <NetworkExplorerView
