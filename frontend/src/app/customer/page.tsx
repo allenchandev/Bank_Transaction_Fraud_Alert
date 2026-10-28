@@ -116,13 +116,13 @@ export default function CustomerPortalPage() {
             className="flex items-center gap-3 cursor-pointer"
             onClick={() => setActiveTab('dashboard')}
           >
-            <div className="w-9 h-9 rounded-xl bg-orange-600 flex items-center justify-center text-white shadow-sm shadow-orange-500/20">
+            <div className="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center text-white shadow-xs">
               <Building2 className="w-5 h-5 font-bold" />
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-extrabold text-base tracking-tight text-slate-900">Aegis</span>
-                <span className="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-orange-50 text-orange-700 border border-orange-200">
+                <span className="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 border border-slate-200">
                   Customer Portal
                 </span>
               </div>
@@ -132,7 +132,7 @@ export default function CustomerPortalPage() {
           {/* Account Persona Selector & Sign Out */}
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2 bg-slate-100 border border-slate-200 rounded-xl py-1 px-3">
-              <User className="w-3.5 h-3.5 text-orange-600" />
+              <User className="w-3.5 h-3.5 text-slate-600" />
               <div className="flex flex-col text-left">
                 <span className="text-[9px] uppercase font-semibold text-slate-500">Account</span>
                 <select
